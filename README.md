@@ -17,11 +17,12 @@ music.youtube.com ─▶ ส่วนขยาย Chrome ─▶ โปรแก�
    - เข้า https://discord.com/developers/applications → **New Application**
    - ตั้งชื่อ `YouTube Music` (ชื่อนี้จะโชว์ในโปรไฟล์)
    - คัดลอก **Application ID** จากหน้า General Information
-3. เปิด Terminal (Windows ใช้ PowerShell) ในโฟลเดอร์นี้ แล้วรัน
+3. เปิด Terminal ในโฟลเดอร์นี้ แล้วรัน
    ```
    npm run setup
    ```
    วาง Application ID เมื่อถูกถาม
+   **Windows PowerShell:** ใช้ `node scripts\install.ts` แทน เพราะ PowerShell บล็อกคำสั่ง `npm` ไว้โดยค่าเริ่มต้น (ขึ้น error ว่า running scripts is disabled)
 4. เปิด `chrome://extensions` → เปิด **Developer mode** → **Load unpacked** → เลือกโฟลเดอร์ `extension`
 5. เปิดแอป Discord แล้วเล่นเพลงที่ https://music.youtube.com
 
@@ -34,7 +35,7 @@ music.youtube.com ─▶ ส่วนขยาย Chrome ─▶ โปรแก�
 - Discord → User Settings → **Activity Privacy** → เปิด "Share your detected activities with others"
 - ดู log ได้ที่ `host/host.log`
 - คนอื่นกดปุ่ม "Listen on YouTube Music" ได้ แต่ตัวเราเองอาจกดปุ่มบนโปรไฟล์ตัวเองไม่ได้ (Discord เป็นแบบนี้เอง)
-- ถอนการติดตั้ง: `npm run setup -- --uninstall` แล้วลบส่วนขยายใน `chrome://extensions`
+- ถอนการติดตั้ง: `npm run setup -- --uninstall` (Windows PowerShell: `node scripts\install.ts --uninstall`) แล้วลบส่วนขยายใน `chrome://extensions`
 
 ## โครงสร้าง
 
