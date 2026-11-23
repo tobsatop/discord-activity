@@ -5,6 +5,8 @@
 
 > Show what you're playing on YouTube Music (in Chrome) as your Discord status. Works on macOS and Windows. Setup steps below are in Thai.
 
+<p><img src="docs/discord-status.png" alt="ตัวอย่างสถานะใน Discord: กำลังฟัง YouTube Music — ชื่อเพลง ศิลปิน อัลบั้ม และแถบเวลา"></p>
+
 ## ทำอะไรได้
 
 - โชว์ชื่อเพลง ศิลปิน ปกอัลบั้ม แถบเวลา และปุ่ม "Listen on YouTube Music"
@@ -21,7 +23,7 @@
 | Node.js **22.18 ขึ้นไป** | แนะนำ **24 LTS** จาก https://nodejs.org |
 | Application ID ของ Discord | สร้างฟรีในขั้นที่ 1 |
 
-## ติดตั้ง
+## ติดตั้ง (ทำครั้งเดียวต่อเครื่อง)
 
 ### ขั้นที่ 1 — สร้าง Application ใน Discord (ทำครั้งเดียว ใช้ได้ทุกเครื่อง)
 
@@ -107,6 +109,27 @@
    (ชื่อตัวเลือกประมาณ *Share my activity* หรือ *Display current activity as a status message*)
 3. เปิด https://music.youtube.com แล้วเล่นเพลง
 4. ภายในไม่กี่วินาที ไอคอนส่วนขยายขึ้น **ON** และโปรไฟล์ Discord ขึ้น "Listening to ชื่อเพลง"
+
+## ใช้งานทุกวัน
+
+**ไม่ต้องรันตัวติดตั้งทุกครั้งที่เปิดเครื่อง** ทำขั้นที่ 1–5 ครั้งเดียวต่อเครื่องพอ
+
+หลังเปิดเครื่องแค่:
+
+1. เปิดแอป Discord
+2. เปิด Chrome แล้วเล่นเพลงที่ music.youtube.com
+
+Chrome จะเปิดโปรแกรมเสริมให้เองเมื่อมีแท็บ YouTube Music และปิดให้เองเมื่อปิดแท็บ
+
+ตั้งให้ Discord เปิดเองตอนเปิดเครื่องได้:
+- Windows: Discord → User Settings → Windows Settings → เปิด **Open Discord**
+- macOS: System Settings → General → Login Items → เพิ่ม Discord
+
+รันตัวติดตั้งใหม่ (ขั้นที่ 3) เฉพาะเมื่อ:
+- ย้ายหรือเปลี่ยนชื่อโฟลเดอร์โปรเจกต์
+- ลบหรือย้าย Node หรืออัปเดต Node ผ่าน nvm / Homebrew
+  (อัปเดตด้วยไฟล์ติดตั้งจาก nodejs.org ไม่ต้องรันใหม่)
+- เปลี่ยน Application ID (ดูหัวข้อ "เปลี่ยน Application ID")
 
 ## ไอคอนบอกอะไร
 
