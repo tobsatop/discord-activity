@@ -15,7 +15,7 @@ npm run setup    # register the native host with Chrome (Windows PowerShell: nod
 npm run update   # ZIP installs only: pull the latest files from GitHub (refuses inside a git clone)
 ```
 
-CI (`.github/workflows/ci.yml`) runs check + test on Windows, macOS and Linux with Node 22 and 24,
+CI (`.github/workflows/ci.yml`) runs check + test on Windows and Linux (Node 22, 24) and macOS (Node 24 only; queues are long),
 plus an installer register/verify/uninstall smoke test on Windows. On Windows the fake Discord
 listens on the real pipe name `\\?\pipe\discord-ipc-0`, so test files run one at a time and Discord
 must be closed when running tests locally.

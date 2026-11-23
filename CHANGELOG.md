@@ -8,7 +8,7 @@
 ### เพิ่ม
 - README ภาษาอังกฤษ (`README.en.md`) และลิงก์สลับภาษาด้านบนของทั้งสองไฟล์
 - License แบบ MIT
-- ตรวจโค้ดอัตโนมัติด้วย GitHub Actions บน Windows, macOS และ Linux (Node 22 และ 24)
+- ตรวจโค้ดอัตโนมัติด้วย GitHub Actions บน Windows และ Linux (Node 22 และ 24) และ macOS (Node 24)
   - บน Windows ทดสอบตัวติดตั้งด้วย: ลงทะเบียน → ตรวจ → ถอน
 - แบบฟอร์มแจ้งปัญหาบน GitHub (ไทย/อังกฤษ)
 
