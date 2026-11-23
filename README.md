@@ -1,43 +1,175 @@
 # YouTube Music → Discord
 
 โชว์เพลงที่กำลังฟังบน YouTube Music (ใน Chrome) เป็นสถานะ **"Listening to …"** ใน Discord
-พร้อมปกอัลบั้ม แถบเวลา และปุ่ม "Listen on YouTube Music"
+ใช้ได้ทั้ง **macOS** และ **Windows**
+
+> Show what you're playing on YouTube Music (in Chrome) as your Discord status. Works on macOS and Windows. Setup steps below are in Thai.
+
+## ทำอะไรได้
+
+- โชว์ชื่อเพลง ศิลปิน ปกอัลบั้ม แถบเวลา และปุ่ม "Listen on YouTube Music"
+- หยุดเพลง ช่วงโฆษณา ปิดแท็บ หรือปิด Chrome → สถานะหายเอง
+- ไม่ต้องเปิดโปรแกรมค้างไว้ Chrome เปิดโปรแกรมเสริมให้เองเมื่อเปิด YouTube Music
+- ใช้ได้กับ **music.youtube.com** เท่านั้น (ไม่รองรับ youtube.com ธรรมดา)
+
+## สิ่งที่ต้องมี
+
+| อะไร | หมายเหตุ |
+|---|---|
+| Google Chrome บนคอม | ทดสอบแล้วบน macOS และ Windows |
+| แอป Discord บนคอม | ต้องเป็นแอป ใช้ Discord บนเว็บไม่ได้ |
+| Node.js **22.18 ขึ้นไป** | แนะนำ **24 LTS** จาก https://nodejs.org |
+| Application ID ของ Discord | สร้างฟรีในขั้นที่ 1 |
+
+## ติดตั้ง
+
+### ขั้นที่ 1 — สร้าง Application ใน Discord (ทำครั้งเดียว ใช้ได้ทุกเครื่อง)
+
+1. เข้า https://discord.com/developers/applications แล้ว login ด้วยบัญชี Discord
+2. กด **New Application** → ตั้งชื่อ `YouTube Music` → ติ๊กยอมรับ → **Create**
+   ชื่อนี้จะโชว์บนการ์ดสถานะ เช่น "Listening to YouTube Music"
+3. หน้า **General Information** → กด **Copy** ที่ช่อง **Application ID** (ตัวเลขยาว 17–20 หลัก) เก็บไว้
+
+ไม่ต้องตั้งค่าอย่างอื่น ไม่ต้องสร้าง bot ไม่ต้องอัปโหลดรูป
+
+### ขั้นที่ 2 — ดาวน์โหลดโค้ด
+
+เลือกวิธีใดวิธีหนึ่ง:
+
+- **มี git:** `git clone https://github.com/tobsatop/discord-activity.git`
+- **ไม่มี git:** หน้า GitHub → ปุ่ม **Code** → **Download ZIP** → **แตกไฟล์ ZIP ก่อน** (Windows: คลิกขวา → Extract All)
+
+> วางโฟลเดอร์ไว้ที่ถาวรก่อนติดตั้ง ถ้าย้ายหรือเปลี่ยนชื่อโฟลเดอร์ทีหลัง ต้องทำขั้นที่ 3 และ 4 ใหม่
+
+### ขั้นที่ 3 — ติดตั้งโปรแกรมเสริม
+
+<details open>
+<summary><b>macOS</b></summary>
+
+1. ติดตั้ง Node.js 24 LTS จาก https://nodejs.org (ไฟล์ `.pkg`) หรือใช้ `brew install node`
+2. เปิด Chrome อย่างน้อยหนึ่งครั้งก่อน (ตัวติดตั้งจะหาโฟลเดอร์ของ Chrome)
+3. เปิดแอป **Terminal** (กด `Cmd + Space` พิมพ์ Terminal)
+4. พิมพ์ `cd ` (มีเว้นวรรคต่อท้าย) แล้ว **ลากโฟลเดอร์โปรเจกต์มาวาง** ในหน้าต่าง Terminal → กด Enter
+5. เช็คเวอร์ชัน Node:
+   ```
+   node -v
+   ```
+   ต้องได้ `v22.18` ขึ้นไป
+6. รันตัวติดตั้ง:
+   ```
+   npm run setup
+   ```
+7. วาง Application ID (`Cmd + V`) → Enter
+8. ขึ้นข้อความ **"ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว"** = สำเร็จ
+
+ตัวติดตั้งเก็บตัวเปิดโปรแกรมไว้ที่ `~/Library/Application Support/ytm-discord-presence/` จึงวางโปรเจกต์ไว้ใน Documents ได้
+ถ้าใช้ nvm แล้วลบหรือเปลี่ยนเวอร์ชัน Node ให้รันตัวติดตั้งใหม่
+
+</details>
+
+<details open>
+<summary><b>Windows</b></summary>
+
+1. ติดตั้ง Node.js 24 LTS จาก https://nodejs.org (ไฟล์ `.msi` กด Next ไปจนจบ ใช้ค่าเริ่มต้นได้เลย)
+2. เปิดโฟลเดอร์โปรเจกต์ใน File Explorer → **คลิกขวาที่ที่ว่าง** → **Open in Terminal**
+   (Windows 10: กด `Shift` ค้างแล้วคลิกขวา → **Open PowerShell window here**)
+3. เช็คเวอร์ชัน Node:
+   ```
+   node -v
+   ```
+   ต้องได้ `v22.18` ขึ้นไป ถ้าขึ้นว่า `node is not recognized` ให้ปิดแล้วเปิด Terminal ใหม่ (หรือ restart เครื่อง)
+4. รันตัวติดตั้ง:
+   ```
+   node scripts\install.ts
+   ```
+   **อย่าใช้ `npm run setup` ใน PowerShell** เพราะ PowerShell บล็อกคำสั่ง npm ไว้ (error: *running scripts is disabled on this system*)
+   ถ้าใช้ Command Prompt (cmd) จะใช้ `npm run setup` ได้
+5. วาง Application ID (คลิกขวา หรือ `Ctrl + V`) → Enter
+6. ขึ้นข้อความ **"ลงทะเบียนโปรแกรมเสริมกับ Chrome, Edge แล้ว"** = สำเร็จ
+
+ตัวติดตั้งเก็บตัวเปิดโปรแกรมไว้ที่ `%LOCALAPPDATA%\ytm-discord-presence\` และลงทะเบียนใน Registry ของผู้ใช้ (HKCU) ไม่ต้องใช้สิทธิ์ Administrator
+
+</details>
+
+### ขั้นที่ 4 — โหลดส่วนขยายใน Chrome
+
+1. พิมพ์ `chrome://extensions` ในช่อง address
+2. เปิดสวิตช์ **Developer mode** มุมขวาบน
+3. กด **Load unpacked** → เลือกโฟลเดอร์ **`extension`** ที่อยู่ข้างในโปรเจกต์
+   (อย่าเลือกโฟลเดอร์โปรเจกต์ทั้งก้อน จะขึ้น error ว่า *Manifest file is missing*)
+4. กดรูปจิ๊กซอว์บนแถบ Chrome → กดหมุด 📌 ที่ **YouTube Music → Discord** เพื่อให้เห็นไอคอนสถานะ
+5. ถ้าเปิดแท็บ YouTube Music ค้างไว้ก่อนแล้ว ให้ **refresh แท็บนั้น 1 ครั้ง**
+
+### ขั้นที่ 5 — ลองใช้
+
+1. เปิดแอป Discord และ login (Windows: **อย่าเปิด Discord แบบ Run as administrator**)
+2. Discord → User Settings → **Activity Privacy** → เปิดการแชร์กิจกรรม
+   (ชื่อตัวเลือกประมาณ *Share my activity* หรือ *Display current activity as a status message*)
+3. เปิด https://music.youtube.com แล้วเล่นเพลง
+4. ภายในไม่กี่วินาที ไอคอนส่วนขยายขึ้น **ON** และโปรไฟล์ Discord ขึ้น "Listening to ชื่อเพลง"
+
+## ไอคอนบอกอะไร
+
+ชี้เมาส์ค้างที่ไอคอนเพื่อดูรายละเอียด
+
+| ไอคอน | ความหมาย |
+|---|---|
+| ไม่มีตัวอักษร | ยังไม่มีแท็บ YouTube Music หรือยังไม่ได้เล่นเพลง |
+| **ON** สีเขียว | กำลังโชว์ใน Discord |
+| **!** สีส้ม | ไม่เจอแอป Discord บนเครื่อง |
+| **!** สีแดง | เปิดโปรแกรมเสริมไม่ได้ หรือ Discord ไม่รับ Application ID |
+
+## แก้ปัญหา
+
+| อาการ | วิธีแก้ |
+|---|---|
+| **!** แดง "เปิดโปรแกรมเสริมไม่ได้" | ยังไม่ได้ทำขั้นที่ 3 ย้ายโฟลเดอร์ หรือลบ Node ไป → ทำขั้นที่ 3 ใหม่ แล้วรอประมาณ 30 วินาที |
+| **!** แดง "Discord ไม่รับการเชื่อมต่อ … Application ID" | Application ID ผิด → ดูหัวข้อ "เปลี่ยน Application ID" ด้านล่าง |
+| **!** ส้ม "ยังไม่เจอแอป Discord" | เปิดแอป Discord แล้วรอประมาณ 15 วินาที ถ้ายังไม่หาย: Windows ให้ปิด Discord ที่เปิดแบบ administrator แล้วเปิดใหม่แบบปกติ |
+| ไอคอนว่างทั้งที่เล่นเพลงอยู่ | refresh แท็บ YouTube Music (จำเป็นทุกครั้งหลังโหลดหรือ reload ส่วนขยาย) |
+| ไอคอน **ON** แต่เพื่อนไม่เห็น | เปิด Activity Privacy ตามขั้นที่ 5 และอย่าตั้งสถานะเป็น Invisible |
+| กดปุ่ม "Listen on YouTube Music" บนโปรไฟล์ตัวเองไม่ได้ | ปกติของ Discord คนอื่นกดได้ |
+| สถานะเปลี่ยนช้าเมื่อกดข้ามเพลงรัว ๆ | Discord รับได้ 5 ครั้งต่อ 20 วินาที เดี๋ยวตามมาเอง |
+| ตัวติดตั้งขึ้น `Unknown file extension ".ts"` | Node เก่าเกินไป → ติดตั้ง Node 24 LTS |
+| ตัวติดตั้งขึ้น "ไม่พบ Chrome บนเครื่องนี้" (macOS) | เปิด Chrome หนึ่งครั้งแล้วรันใหม่ |
+| ใช้ Chrome โปรไฟล์ที่ทำงานหรือโรงเรียนดูแล | องค์กรอาจปิด Developer mode หรือ native messaging → ลองโปรไฟล์ส่วนตัว |
+
+ยังไม่หาย: ดู log ที่ `host/host.log` ในโฟลเดอร์โปรเจกต์
+
+## เปลี่ยน Application ID
+
+ตัวติดตั้งจะจำ ID เดิมไว้ ถ้าจะเปลี่ยนให้ใส่ ID ใหม่ต่อท้ายคำสั่ง:
+
+- macOS: `npm run setup -- 123456789012345678`
+- Windows PowerShell: `node scripts\install.ts 123456789012345678`
+
+จากนั้นปิดแท็บ YouTube Music **ทุกแท็บ** แล้วเปิดใหม่ เพื่อให้โปรแกรมเสริมเริ่มใหม่ด้วย ID ใหม่
+
+## อัปเดตเป็นเวอร์ชันใหม่
+
+1. ดึงโค้ดใหม่: `git pull` หรือดาวน์โหลด ZIP ใหม่แล้ว **แตกไฟล์ทับโฟลเดอร์เดิม** (ไม่ต้องลบ `host/config.json`)
+2. `chrome://extensions` → กดปุ่มหมุน ↻ บนการ์ดของส่วนขยาย
+3. refresh แท็บ YouTube Music
+
+ถ้าโฟลเดอร์อยู่ที่ใหม่ ให้ทำขั้นที่ 3 และ 4 ใหม่ด้วย
+
+## ถอนการติดตั้ง
+
+1. macOS: `npm run setup -- --uninstall` · Windows PowerShell: `node scripts\install.ts --uninstall`
+2. `chrome://extensions` → **Remove** ส่วนขยาย
+3. ลบโฟลเดอร์โปรเจกต์ และลบ Application ใน Discord Developer Portal ได้ถ้าไม่ใช้แล้ว
+
+## ความเป็นส่วนตัว
+
+- ส่วนขยายทำงานเฉพาะบน music.youtube.com และขอสิทธิ์แค่ `nativeMessaging` (คุยกับโปรแกรมเสริมบนเครื่อง)
+- ข้อมูลเพลงส่งไปแค่แอป Discord บนเครื่องคุณ ไม่มีเซิร์ฟเวอร์อื่น Discord จะโชว์ให้เพื่อนเห็นตามการตั้งค่าของคุณ
+- `host/host.log` เก็บชื่อเพลงล่าสุดไว้บนเครื่องเพื่อใช้แก้ปัญหา (เกิน 1 MB จะล้างเอง)
+
+## ทำงานยังไง
 
 ```
 music.youtube.com ─▶ ส่วนขยาย Chrome ─▶ โปรแกรมเสริม (Chrome เปิดให้เอง) ─▶ แอป Discord
 ```
-
-- หยุดเพลง → สถานะหาย / ปิดแท็บหรือปิด Chrome → สถานะหาย
-- ไม่ต้องเปิดโปรแกรมอะไรค้างไว้เอง
-
-## ติดตั้ง (ทำครั้งเดียวต่อเครื่อง)
-
-1. ติดตั้ง **Node.js 24 LTS** (ใช้ 22.18 ขึ้นไปได้) และ **แอป Discord** (ใช้ Discord บนเว็บไม่ได้)
-2. สร้างแอปใน Discord
-   - เข้า https://discord.com/developers/applications → **New Application**
-   - ตั้งชื่อ `YouTube Music` (ชื่อนี้จะโชว์ในโปรไฟล์)
-   - คัดลอก **Application ID** จากหน้า General Information
-3. เปิด Terminal ในโฟลเดอร์นี้ แล้วรัน
-   ```
-   npm run setup
-   ```
-   วาง Application ID เมื่อถูกถาม
-   **Windows PowerShell:** ใช้ `node scripts\install.ts` แทน เพราะ PowerShell บล็อกคำสั่ง `npm` ไว้โดยค่าเริ่มต้น (ขึ้น error ว่า running scripts is disabled)
-4. เปิด `chrome://extensions` → เปิด **Developer mode** → **Load unpacked** → เลือกโฟลเดอร์ `extension`
-5. เปิดแอป Discord แล้วเล่นเพลงที่ https://music.youtube.com
-
-**ย้ายไป Windows:** copy โฟลเดอร์นี้ไปทั้งโฟลเดอร์ (ไม่ต้องเอา `node_modules`) แล้วทำข้อ 1, 3, 4, 5 บน Windows
-ใช้ Application ID เดิมได้ ถ้าย้ายโฟลเดอร์หรือเปลี่ยนเวอร์ชัน Node ให้รัน `npm run setup` ใหม่
-
-## ถ้าไม่ขึ้น
-
-- ดูไอคอนส่วนขยายบนแถบ Chrome: **ON** = ปกติ, **!** = มีปัญหา (ชี้เมาส์ค้างไว้เพื่อดูสาเหตุ)
-- Discord → User Settings → **Activity Privacy** → เปิด "Share your detected activities with others"
-- ดู log ได้ที่ `host/host.log`
-- คนอื่นกดปุ่ม "Listen on YouTube Music" ได้ แต่ตัวเราเองอาจกดปุ่มบนโปรไฟล์ตัวเองไม่ได้ (Discord เป็นแบบนี้เอง)
-- ถอนการติดตั้ง: `npm run setup -- --uninstall` (Windows PowerShell: `node scripts\install.ts --uninstall`) แล้วลบส่วนขยายใน `chrome://extensions`
-
-## โครงสร้าง
 
 | ไฟล์ | หน้าที่ |
 |---|---|
@@ -45,13 +177,13 @@ music.youtube.com ─▶ ส่วนขยาย Chrome ─▶ โปรแก�
 | `extension/bridge.js` | ส่งต่อข้อมูลจากหน้าเว็บไปที่ background |
 | `extension/background.js` | เลือกเพลงที่จะโชว์ ส่งให้โปรแกรมเสริม และอัปเดตไอคอน |
 | `host/main.ts` | โปรแกรมเสริมที่ Chrome เปิดให้เอง (native messaging) |
-| `host/discord-ipc.ts` | คุยกับแอป Discord ผ่าน IPC พร้อมต่อใหม่เองและจำกัดความถี่ (5 ครั้ง/20 วินาที) |
+| `host/discord-ipc.ts` | คุยกับแอป Discord ผ่าน IPC ต่อใหม่เองเมื่อหลุด และจำกัดความถี่ตามที่ Discord กำหนด |
 | `host/activity.ts` | แปลงข้อมูลเพลงเป็นสถานะ Discord และตรวจข้อมูลที่ได้จากเบราว์เซอร์ |
-| `scripts/install.ts` | ลงทะเบียนโปรแกรมเสริมกับ Chrome (macOS / Windows / Linux) ตัวเปิดโปรแกรมเก็บไว้ในโฟลเดอร์ข้อมูลแอปของระบบ เพราะ macOS ไม่ให้ Chrome เปิดโปรแกรมใน Documents |
+| `scripts/install.ts` | ลงทะเบียนโปรแกรมเสริมกับ Chrome (macOS / Windows / Linux) |
 
 Node รันไฟล์ `.ts` ได้ตรง ๆ จึงไม่ต้อง build ส่วนขยายเขียนเป็น `.js` แต่ TypeScript ตรวจ type ให้ด้วย
 
-## สำหรับพัฒนา
+## สำหรับนักพัฒนา
 
 ```
 npm install      # ติดตั้งแค่ TypeScript กับ type definitions
@@ -59,4 +191,6 @@ npm run check    # ตรวจ type ทั้งสองฝั่ง
 npm test         # ทดสอบโปรแกรมเสริมกับ Discord จำลอง
 ```
 
-แก้ไฟล์ในโฟลเดอร์ `extension` แล้วกด reload ส่วนขยายใน `chrome://extensions` และ refresh แท็บ YouTube Music
+- แก้ไฟล์ใน `extension/` → กด ↻ ที่ `chrome://extensions` แล้ว refresh แท็บ YouTube Music
+- แก้ไฟล์ใน `host/` → ปิดแท็บ YouTube Music ทุกแท็บแล้วเปิดใหม่ (โปรแกรมเสริมจะเริ่มใหม่)
+- Windows PowerShell: ใช้ `npm.cmd` แทน `npm` เช่น `npm.cmd test`

@@ -208,7 +208,7 @@ export class DiscordIpc {
     if (frame.op === OP.PING) {
       socket.write(encodeFrame(OP.PONG, data));
     } else if (frame.op === OP.CLOSE) {
-      this.#closeReason = `Discord ไม่รับการเชื่อมต่อ: ${data?.message ?? 'unknown'} — ตรวจ Application ID (npm run setup)`;
+      this.#closeReason = `Discord ไม่รับการเชื่อมต่อ: ${data?.message ?? 'unknown'} — ตรวจ Application ID (README หัวข้อเปลี่ยน Application ID)`;
       socket.destroy();
     } else if (frame.op === OP.FRAME) {
       if (data?.cmd === 'DISPATCH' && data.evt === 'READY') {

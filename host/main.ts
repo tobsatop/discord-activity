@@ -88,7 +88,7 @@ if (clientId) {
   discord.start();
 } else {
   log(`no valid Discord Application ID in ${CONFIG_FILE}`);
-  send({ type: 'status', state: 'error', detail: 'ยังไม่ได้ใส่ Discord Application ID — รัน npm run setup' });
+  send({ type: 'status', state: 'error', detail: 'ยังไม่ได้ใส่ Discord Application ID — รันตัวติดตั้ง (README ขั้นที่ 3)' });
 }
 
 readNativeMessages(

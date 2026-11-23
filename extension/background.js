@@ -119,7 +119,7 @@ function refreshBadge() {
   } else if (hostState === 'missing') {
     text = '!';
     color = '#d93025';
-    title += `\nเปิดโปรแกรมเสริมไม่ได้ — รัน npm run setup ก่อน\n(${hostDetail})`;
+    title += `\nเปิดโปรแกรมเสริมไม่ได้ — รันตัวติดตั้งก่อน (README ขั้นที่ 3)\n(${hostDetail})`;
   } else if (hostState === 'unavailable') {
     text = '!';
     color = '#f29900';
