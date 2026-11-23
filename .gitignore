@@ -1,0 +1,4 @@
+node_modules/
+# written on each computer by `npm run setup` / the host
+host/config.json
+host/*.log

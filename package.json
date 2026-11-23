@@ -1,0 +1,20 @@
+{
+  "name": "ytm-discord-presence",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Show the song playing on YouTube Music (Chrome) as your Discord status",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "setup": "node scripts/install.ts",
+    "check": "tsc -p . && tsc -p extension",
+    "test": "node --test \"host/test/*.test.ts\""
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.3.7",
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2"
+  }
+}

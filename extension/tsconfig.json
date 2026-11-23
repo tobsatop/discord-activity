@@ -1,0 +1,14 @@
+{
+  // Type-checks the extension's plain .js files (Chrome loads them as-is).
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2022", "dom"],
+    "types": ["chrome"],
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "include": ["*.js", "types.d.ts"]
+}

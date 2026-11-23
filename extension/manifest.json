@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Music → Discord",
+  "version": "0.1.0",
+  "description": "แสดงเพลงที่กำลังฟังบน YouTube Music ในสถานะ Discord",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3IcCSzjqRbzdjuajz2BoI9vfT6pBKRZJ4q7cnlbBVKLPeR0vZp4im2k1sruqQxdmqcx0jWJlZCLzDK1lOCnodv8Oj0OTLFu9h322SHPdPDCNruHtFm2bMa8pl0Hmk2soFkubwobyGsPdW5+N+l86IibFth5ppdBDTf4rcFswQW30QIrMXpvLK5Pi9vzqTlCwdqZwE/1ycYgZdPIPhCcyPU8soYmp+mcvFUFCr/kJ0CHH86siiQKK2Hx1arnSWMHUtdnd9F6AVgW6NDl2feuTw2yPqT8T8cZdvlYxED281FZvRD14XLGpMWQfK1jp+S+UbAZ4LKfejqMiTbsIaBtZyQIDAQAB",
+  "minimum_chrome_version": "111",
+  "permissions": ["nativeMessaging"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "YouTube Music → Discord"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://music.youtube.com/*"],
+      "js": ["page-reader.js"],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://music.youtube.com/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
