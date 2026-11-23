@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Original icon (not the YouTube Music logo): red disc with a white pair of beamed notes.
+       Regenerate the PNGs after editing: npm run icons (needs ImageMagick). -->
+  <circle cx="64" cy="64" r="62" fill="#FF0033"/>
+  <g fill="#FFFFFF">
+    <polygon points="48,38 96,28 96,43 48,53"/>
+    <rect x="48" y="38" width="8" height="50"/>
+    <rect x="88" y="28" width="8" height="50"/>
+    <!-- note heads: ellipses rx 14, ry 10.5, tilted -22°, drawn as arcs (ImageMagick ignores rotated <ellipse>) -->
+    <path d="M30.02 93.24 A14 10.5 -22 1 0 55.98 82.76 A14 10.5 -22 1 0 30.02 93.24 Z"/>
+    <path d="M70.02 83.24 A14 10.5 -22 1 0 95.98 72.76 A14 10.5 -22 1 0 70.02 83.24 Z"/>
+  </g>
+</svg>

@@ -216,4 +216,5 @@ npm test         # ทดสอบโปรแกรมเสริมกับ 
 
 - แก้ไฟล์ใน `extension/` → กด ↻ ที่ `chrome://extensions` แล้ว refresh แท็บ YouTube Music
 - แก้ไฟล์ใน `host/` → ปิดแท็บ YouTube Music ทุกแท็บแล้วเปิดใหม่ (โปรแกรมเสริมจะเริ่มใหม่)
+- ไอคอน: แก้ `extension/icons/icon.svg` แล้วรัน `npm run icons` (ต้องมี ImageMagick) หรือวางไฟล์ PNG ของตัวเองทับ `icon-16/32/48/128.png` แล้วกด ↻
 - Windows PowerShell: ใช้ `npm.cmd` แทน `npm` เช่น `npm.cmd test`

@@ -10,7 +10,8 @@
   "scripts": {
     "setup": "node scripts/install.ts",
     "check": "tsc -p . && tsc -p extension",
-    "test": "node --test \"host/test/*.test.ts\""
+    "test": "node --test \"host/test/*.test.ts\"",
+    "icons": "node scripts/icons.ts"
   },
   "devDependencies": {
     "@types/chrome": "^0.3.7",
