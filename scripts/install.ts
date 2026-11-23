@@ -114,7 +114,7 @@ function writeLauncher(): string {
   return file;
 }
 
-function install(clientId: string): void {
+function install(clientId: string, options: { update?: boolean } = {}): void {
   fs.writeFileSync(CONFIG_FILE, `${JSON.stringify({ clientId }, null, 2)}\n`);
   removeLegacyFiles();
   const id = extensionId();
@@ -153,6 +153,7 @@ function install(clientId: string): void {
     process.exit(1);
   }
   console.log(`ลงทะเบียนโปรแกรมเสริมกับ ${done.join(', ')} แล้ว`);
+  if (options.update) return; // scripts/update.ts prints its own next steps
   console.log(`ID ส่วนขยาย: ${id}`);
   console.log('');
   console.log('ขั้นต่อไป:');
@@ -180,13 +181,14 @@ function uninstall(): void {
 
 checkNode();
 const args = process.argv.slice(2);
+const positional = args.filter((arg) => !arg.startsWith('--'));
 if (args.includes('--uninstall')) {
   uninstall();
 } else {
-  const clientId = await resolveClientId(args[0]);
+  const clientId = await resolveClientId(positional[0]);
   if (!CLIENT_ID.test(clientId)) {
     console.error('Application ID ต้องเป็นตัวเลข 17–20 หลัก (Discord Developer Portal → General Information)');
     process.exit(1);
   }
-  install(clientId);
+  install(clientId, { update: args.includes('--update') });
 }

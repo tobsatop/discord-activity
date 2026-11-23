@@ -107,30 +107,31 @@ function closeHost() {
   refreshBadge();
 }
 
-/** Toolbar icon: ON = showing in Discord, ! = something to fix (hover for the reason). */
+/** Which toolbar icon (extension/icons/<name>-16|32.png) is showing. */
+let shownIcon = '';
+
+/**
+ * Toolbar icon: red = showing in Discord, grey = nothing showing,
+ * grey with an amber/red dot = something to fix (hover for the reason).
+ */
 function refreshBadge() {
   const track = currentTrack();
-  let text = '';
-  let color = '#5f6368';
+  let icon = 'idle';
   let title = 'YouTube Music → Discord';
 
   if (ytmTabs.size === 0) {
     title += '\nเปิด music.youtube.com แล้วเล่นเพลง';
   } else if (hostState === 'missing') {
-    text = '!';
-    color = '#d93025';
+    icon = 'error';
     title += `\nเปิดโปรแกรมเสริมไม่ได้ — รันตัวติดตั้งก่อน (README ขั้นที่ 3)\n(${hostDetail})`;
   } else if (hostState === 'unavailable') {
-    text = '!';
-    color = '#f29900';
+    icon = 'warn';
     title += `\nยังไม่เจอแอป Discord — เปิดแอป Discord บนเครื่องก่อน\n(${hostDetail})`;
   } else if (hostState === 'error') {
-    text = '!';
-    color = '#d93025';
+    icon = 'error';
     title += `\n${hostDetail}`;
   } else if (hostState === 'connected' && track) {
-    text = 'ON';
-    color = '#188038';
+    icon = 'icon';
     title += `\nกำลังแสดง: ${track.title}${track.artist ? ` — ${track.artist}` : ''}`;
   } else if (hostState === 'connected') {
     title += '\nเชื่อม Discord แล้ว — รอเพลงเล่น';
@@ -138,7 +139,10 @@ function refreshBadge() {
     title += '\nกำลังเชื่อม Discord…';
   }
 
-  void chrome.action.setBadgeText({ text });
-  void chrome.action.setBadgeBackgroundColor({ color });
+  if (icon !== shownIcon) {
+    shownIcon = icon;
+    void chrome.action.setIcon({ path: { 16: `icons/${icon}-16.png`, 32: `icons/${icon}-32.png` } });
+  }
+  void chrome.action.setBadgeText({ text: '' });
   void chrome.action.setTitle({ title });
 }

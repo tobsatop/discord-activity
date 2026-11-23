@@ -108,7 +108,7 @@
 2. Discord → User Settings → **Activity Privacy** → เปิดการแชร์กิจกรรม
    (ชื่อตัวเลือกประมาณ *Share my activity* หรือ *Display current activity as a status message*)
 3. เปิด https://music.youtube.com แล้วเล่นเพลง
-4. ภายในไม่กี่วินาที ไอคอนส่วนขยายขึ้น **ON** และโปรไฟล์ Discord ขึ้น "Listening to ชื่อเพลง"
+4. ภายในไม่กี่วินาที ไอคอนส่วนขยายเปลี่ยนเป็น **สีแดง** และโปรไฟล์ Discord ขึ้น "Listening to ชื่อเพลง"
 
 ## ใช้งานทุกวัน
 
@@ -137,20 +137,20 @@ Chrome จะเปิดโปรแกรมเสริมให้เอง�
 
 | ไอคอน | ความหมาย |
 |---|---|
-| ไม่มีตัวอักษร | ยังไม่มีแท็บ YouTube Music หรือยังไม่ได้เล่นเพลง |
-| **ON** สีเขียว | กำลังโชว์ใน Discord |
-| **!** สีส้ม | ไม่เจอแอป Discord บนเครื่อง |
-| **!** สีแดง | เปิดโปรแกรมเสริมไม่ได้ หรือ Discord ไม่รับ Application ID |
+| <img src="extension/icons/icon-32.png" width="20" alt="แดง"> สีแดง | กำลังโชว์ใน Discord |
+| <img src="extension/icons/idle-32.png" width="20" alt="เทา"> สีเทา | ยังไม่มีแท็บ YouTube Music หรือยังไม่ได้เล่นเพลง |
+| <img src="extension/icons/warn-32.png" width="20" alt="จุดส้ม"> เทา + จุดส้ม | ไม่เจอแอป Discord บนเครื่อง |
+| <img src="extension/icons/error-32.png" width="20" alt="จุดแดง"> เทา + จุดแดง | เปิดโปรแกรมเสริมไม่ได้ หรือ Discord ไม่รับ Application ID |
 
 ## แก้ปัญหา
 
 | อาการ | วิธีแก้ |
 |---|---|
-| **!** แดง "เปิดโปรแกรมเสริมไม่ได้" | ยังไม่ได้ทำขั้นที่ 3 ย้ายโฟลเดอร์ หรือลบ Node ไป → ทำขั้นที่ 3 ใหม่ แล้วรอประมาณ 30 วินาที |
-| **!** แดง "Discord ไม่รับการเชื่อมต่อ … Application ID" | Application ID ผิด → ดูหัวข้อ "เปลี่ยน Application ID" ด้านล่าง |
-| **!** ส้ม "ยังไม่เจอแอป Discord" | เปิดแอป Discord แล้วรอประมาณ 15 วินาที ถ้ายังไม่หาย: Windows ให้ปิด Discord ที่เปิดแบบ administrator แล้วเปิดใหม่แบบปกติ |
-| ไอคอนว่างทั้งที่เล่นเพลงอยู่ | refresh แท็บ YouTube Music (จำเป็นทุกครั้งหลังโหลดหรือ reload ส่วนขยาย) |
-| ไอคอน **ON** แต่เพื่อนไม่เห็น | เปิด Activity Privacy ตามขั้นที่ 5 และอย่าตั้งสถานะเป็น Invisible |
+| จุดแดง "เปิดโปรแกรมเสริมไม่ได้" | ยังไม่ได้ทำขั้นที่ 3 ย้ายโฟลเดอร์ หรือลบ Node ไป → ทำขั้นที่ 3 ใหม่ แล้วรอประมาณ 30 วินาที |
+| จุดแดง "Discord ไม่รับการเชื่อมต่อ … Application ID" | Application ID ผิด → ดูหัวข้อ "เปลี่ยน Application ID" ด้านล่าง |
+| จุดส้ม "ยังไม่เจอแอป Discord" | เปิดแอป Discord แล้วรอประมาณ 15 วินาที ถ้ายังไม่หาย: Windows ให้ปิด Discord ที่เปิดแบบ administrator แล้วเปิดใหม่แบบปกติ |
+| ไอคอนเป็นสีเทาทั้งที่เล่นเพลงอยู่ | refresh แท็บ YouTube Music (จำเป็นทุกครั้งหลังโหลดหรือ reload ส่วนขยาย) |
+| ไอคอนสีแดงแต่เพื่อนไม่เห็น | เปิด Activity Privacy ตามขั้นที่ 5 และอย่าตั้งสถานะเป็น Invisible |
 | กดปุ่ม "Listen on YouTube Music" บนโปรไฟล์ตัวเองไม่ได้ | ปกติของ Discord คนอื่นกดได้ |
 | สถานะเปลี่ยนช้าเมื่อกดข้ามเพลงรัว ๆ | Discord รับได้ 5 ครั้งต่อ 20 วินาที เดี๋ยวตามมาเอง |
 | ตัวติดตั้งขึ้น `Unknown file extension ".ts"` | Node เก่าเกินไป → ติดตั้ง Node 24 LTS |
@@ -170,11 +170,32 @@ Chrome จะเปิดโปรแกรมเสริมให้เอง�
 
 ## อัปเดตเป็นเวอร์ชันใหม่
 
-1. ดึงโค้ดใหม่: `git pull` หรือดาวน์โหลด ZIP ใหม่แล้ว **แตกไฟล์ทับโฟลเดอร์เดิม** (ไม่ต้องลบ `host/config.json`)
+Application ID ไม่หาย และไม่ต้องติดตั้งใหม่
+
+**ดาวน์โหลดแบบ ZIP (ไม่ใช้ git)** — ใช้คำสั่งเดียว:
+
+1. เปิด Terminal ในโฟลเดอร์โปรเจกต์ (แบบเดียวกับขั้นที่ 3) แล้วรัน
+   - Windows PowerShell: `node scripts\update.ts`
+   - macOS: `npm run update`
+
+   คำสั่งนี้โหลดเวอร์ชันล่าสุดจาก GitHub มาทับเฉพาะไฟล์ที่เปลี่ยน และลงทะเบียนโปรแกรมเสริมให้ใหม่
 2. `chrome://extensions` → กดปุ่มหมุน ↻ บนการ์ดของส่วนขยาย
 3. refresh แท็บ YouTube Music
 
-ถ้าโฟลเดอร์อยู่ที่ใหม่ ให้ทำขั้นที่ 3 และ 4 ใหม่ด้วย
+**ใช้ git:** `git pull` แล้วทำข้อ 2–3
+
+<details>
+<summary>ถ้าในโฟลเดอร์ยังไม่มี <code>scripts/update.ts</code> (โหลดเวอร์ชันแรก ๆ ไว้) — อัปเดตด้วยมือครั้งเดียว</summary>
+
+1. หน้า GitHub → **Code** → **Download ZIP** → คลิกขวา → **Extract All**
+2. เปิดเข้าไปจนเจอโฟลเดอร์ที่มี `extension`, `host`, `scripts` อยู่ข้างใน
+3. เลือกทุกอย่างในนั้น → Copy → วางในโฟลเดอร์เดิม → เลือก **Replace the files in the destination**
+4. ทำข้อ 2–3 ด้านบน
+
+ระวัง: ถ้าแตก ZIP เป็นโฟลเดอร์ใหม่แล้วไม่ได้ copy ทับ Chrome จะยังใช้โฟลเดอร์เก่าอยู่
+ครั้งต่อไปใช้ `node scripts\update.ts` ได้เลย
+
+</details>
 
 ## ถอนการติดตั้ง
 
@@ -216,5 +237,5 @@ npm test         # ทดสอบโปรแกรมเสริมกับ 
 
 - แก้ไฟล์ใน `extension/` → กด ↻ ที่ `chrome://extensions` แล้ว refresh แท็บ YouTube Music
 - แก้ไฟล์ใน `host/` → ปิดแท็บ YouTube Music ทุกแท็บแล้วเปิดใหม่ (โปรแกรมเสริมจะเริ่มใหม่)
-- ไอคอน: แก้ `extension/icons/icon.svg` แล้วรัน `npm run icons` (ต้องมี ImageMagick) หรือวางไฟล์ PNG ของตัวเองทับ `icon-16/32/48/128.png` แล้วกด ↻
+- ไอคอน: แก้ `extension/icons/icon.svg` แล้วรัน `npm run icons` (ต้องมี ImageMagick) จะได้ไอคอนทุกสถานะ (`icon-*` แดง, `idle-*` เทา, `warn-*` จุดส้ม, `error-*` จุดแดง) หรือวาง PNG ของตัวเองทับไฟล์เหล่านี้แล้วกด ↻
 - Windows PowerShell: ใช้ `npm.cmd` แทน `npm` เช่น `npm.cmd test`
