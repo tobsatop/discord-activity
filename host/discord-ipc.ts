@@ -13,7 +13,7 @@ const MAX_FRAME = 16 * 1024 * 1024;
 
 export type DiscordStatus =
   | { state: 'connecting' }
-  | { state: 'connected'; detail: string }
+  | { state: 'connected' }
   | { state: 'unavailable'; detail: string }
   | { state: 'error'; detail: string };
 
@@ -213,8 +213,8 @@ export class DiscordIpc {
     } else if (frame.op === OP.FRAME) {
       if (data?.cmd === 'DISPATCH' && data.evt === 'READY') {
         this.#ready = true;
-        const user = data.data?.user;
-        this.#status({ state: 'connected', detail: String(user?.global_name || user?.username || '') });
+        // Deliberately not logging the Discord user name: people paste host.log into issues.
+        this.#status({ state: 'connected' });
         this.#scheduleFlush();
       } else if (data?.cmd === 'SET_ACTIVITY' && data.evt === 'ERROR') {
         this.#options.onActivityError(String(data.data?.message ?? 'unknown error'));

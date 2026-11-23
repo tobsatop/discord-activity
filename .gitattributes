@@ -1,0 +1,3 @@
+# Same line endings on every OS (Windows checkouts too); images untouched.
+* text=auto eol=lf
+*.png binary

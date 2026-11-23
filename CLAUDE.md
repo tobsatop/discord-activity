@@ -15,6 +15,11 @@ npm run setup    # register the native host with Chrome (Windows PowerShell: nod
 npm run update   # ZIP installs only: pull the latest files from GitHub (refuses inside a git clone)
 ```
 
+CI (`.github/workflows/ci.yml`) runs check + test on Windows, macOS and Linux with Node 22 and 24,
+plus an installer register/verify/uninstall smoke test on Windows. On Windows the fake Discord
+listens on the real pipe name `\\?\pipe\discord-ipc-0`, so test files run one at a time and Discord
+must be closed when running tests locally.
+
 No build step: Node 22.18+ runs the `.ts` files directly (type stripping), so keep TypeScript
 erasable (no enums, no parameter properties, `.ts` extensions in imports). The extension is
 plain `.js` with `// @ts-check` and is loaded unpacked from `extension/`.
@@ -46,3 +51,5 @@ plain `.js` with `// @ts-check` and is loaded unpacked from `extension/`.
 - Releasing: bump `version` in both `package.json` and `extension/manifest.json`, add a
   CHANGELOG.md entry, run `npm run check && npm test`.
 - `host/config.json` (Discord Application ID) and `host/host.log` are per machine and gitignored.
+- Never log the Discord user name or other account details: users paste host.log into public issues.
+- License is MIT (copyright "tobsatop"). Keep the trademark disclaimer at the end of both READMEs.

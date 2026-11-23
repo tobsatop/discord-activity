@@ -4,11 +4,11 @@ import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
 import type { Activity } from '../activity.ts';
-import { FrameDecoder, OP, encodeFrame } from '../discord-ipc.ts';
+import { FrameDecoder, OP, encodeFrame, ipcPath } from '../discord-ipc.ts';
 
 /** Unix socket paths are limited to ~104 bytes, so keep the folder short. */
 export function shortTempDir(): string {
-  const base = os.tmpdir().length < 60 ? os.tmpdir() : '/tmp';
+  const base = process.platform === 'win32' || os.tmpdir().length < 60 ? os.tmpdir() : '/tmp';
   return fs.mkdtempSync(path.join(base, 'ytmd-'));
 }
 
@@ -50,7 +50,17 @@ export async function fakeDiscord(dir: string, options: { rejectDetailsUrl?: boo
       }
     });
   });
-  await new Promise<void>((resolve) => server.listen(path.join(dir, 'discord-ipc-0'), resolve));
+  // macOS/Linux: a socket in a test folder (the host finds it through TMPDIR).
+  // Windows: the real pipe name, since pipes have no folder. Close Discord before
+  // running the tests on Windows; test files run one at a time for this reason.
+  const listenPath = process.platform === 'win32' ? ipcPath(0) : path.join(dir, 'discord-ipc-0');
+  await new Promise<void>((resolve, reject) => {
+    server.once('error', reject);
+    server.listen(listenPath, () => {
+      server.off('error', reject);
+      resolve();
+    });
+  });
 
   return {
     activities,

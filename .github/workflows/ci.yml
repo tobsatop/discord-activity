@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node }} · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+
+      # The installer is the part Windows users run themselves: register, check, remove.
+      - name: Installer smoke test (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          node scripts/install.ts 123456789012345678
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          $manifest = (Get-ItemProperty 'HKCU:\Software\Google\Chrome\NativeMessagingHosts\local.ytm_discord_presence').'(default)'
+          if (-not (Test-Path $manifest)) { throw "host manifest missing: $manifest" }
+          $launcher = (Get-Content $manifest | ConvertFrom-Json).path
+          if (-not (Test-Path $launcher)) { throw "launcher missing: $launcher" }
+          node scripts/install.ts --uninstall
+          if (Test-Path 'HKCU:\Software\Google\Chrome\NativeMessagingHosts\local.ytm_discord_presence') { throw 'registry key not removed' }

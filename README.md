@@ -1,5 +1,8 @@
 # YouTube Music → Discord
 
+[![CI](https://github.com/tobsatop/discord-activity/actions/workflows/ci.yml/badge.svg)](https://github.com/tobsatop/discord-activity/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 **ภาษาไทย** | [English](README.en.md)
 
 โชว์เพลงที่กำลังฟังบน YouTube Music (ใน Chrome) เป็นสถานะ **"Listening to …"** ใน Discord
@@ -243,5 +246,13 @@ npm test         # ทดสอบโปรแกรมเสริมกับ 
 - แก้ไฟล์ใน `extension/` → กด ↻ ที่ `chrome://extensions` แล้ว refresh แท็บ YouTube Music
 - แก้ไฟล์ใน `host/` → ปิดแท็บ YouTube Music ทุกแท็บแล้วเปิดใหม่ (โปรแกรมเสริมจะเริ่มใหม่)
 - ไอคอน: แก้ `extension/icons/icon.svg` แล้วรัน `npm run icons` (ต้องมี ImageMagick) จะได้ไอคอนทุกสถานะ (`icon-*` แดง, `idle-*` เทา, `warn-*` จุดส้ม, `error-*` จุดแดง) หรือวาง PNG ของตัวเองทับไฟล์เหล่านี้แล้วกด ↻
-- Windows PowerShell: ใช้ `npm.cmd` แทน `npm` เช่น `npm.cmd test`
+- Windows PowerShell: ใช้ `npm.cmd` แทน `npm` เช่น `npm.cmd test` (ปิดแอป Discord ก่อนรันเทสต์บน Windows เพราะ Discord จำลองใช้ pipe ชื่อเดียวกับของจริง)
+- ทุกครั้งที่ push GitHub Actions จะรัน `npm run check` และ `npm test` บน Windows, macOS และ Linux ให้เอง
 - ออกเวอร์ชันใหม่: เปลี่ยนเลขใน `package.json` และ `extension/manifest.json` ให้ตรงกัน เขียนรายการใน `CHANGELOG.md` และแก้ README ให้ตรงกันทั้งสองภาษา (`README.md` ไทย, `README.en.md` อังกฤษ)
+
+## License
+
+[MIT](LICENSE) — ใช้ แก้ และแจกต่อได้ โดยใส่เครดิต
+
+YouTube Music เป็นเครื่องหมายการค้าของ Google LLC และ Discord เป็นเครื่องหมายการค้าของ Discord Inc.
+โปรเจกต์นี้ไม่ได้เกี่ยวข้อง หรือได้รับการรับรองจากทั้งสองบริษัท

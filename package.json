@@ -3,6 +3,17 @@
   "version": "0.2.0",
   "private": true,
   "description": "Show the song playing on YouTube Music (Chrome) as your Discord status",
+  "keywords": [
+    "discord",
+    "discord-rich-presence",
+    "youtube-music",
+    "chrome-extension",
+    "native-messaging"
+  ],
+  "license": "MIT",
+  "author": "tobsatop",
+  "homepage": "https://github.com/tobsatop/discord-activity#readme",
+  "bugs": "https://github.com/tobsatop/discord-activity/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/tobsatop/discord-activity.git"
@@ -15,7 +26,7 @@
     "setup": "node scripts/install.ts",
     "update": "node scripts/update.ts",
     "check": "tsc -p . && tsc -p extension",
-    "test": "node --test \"host/test/*.test.ts\"",
+    "test": "node --test --test-concurrency=1 \"host/test/*.test.ts\"",
     "icons": "node scripts/icons.ts"
   },
   "devDependencies": {

@@ -1,5 +1,8 @@
 # YouTube Music → Discord
 
+[![CI](https://github.com/tobsatop/discord-activity/actions/workflows/ci.yml/badge.svg)](https://github.com/tobsatop/discord-activity/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 [ภาษาไทย](README.md) | **English**
 
 Show the song you're playing on YouTube Music (in Chrome) as your Discord status: **"Listening to …"**.
@@ -245,5 +248,13 @@ npm test         # test the helper against a fake Discord
 - Changed `extension/` → click ↻ in `chrome://extensions`, then refresh the YouTube Music tab
 - Changed `host/` → close every YouTube Music tab and open one again (the helper restarts)
 - Icons: edit `extension/icons/icon.svg` and run `npm run icons` (needs ImageMagick) to build every state (`icon-*` red, `idle-*` grey, `warn-*` amber dot, `error-*` red dot), or drop your own PNGs over those files and click ↻
-- Windows PowerShell: use `npm.cmd` instead of `npm`, e.g. `npm.cmd test`
+- Windows PowerShell: use `npm.cmd` instead of `npm`, e.g. `npm.cmd test` (close the Discord app before running tests on Windows: the fake Discord uses the same pipe name as the real one)
+- On every push, GitHub Actions runs `npm run check` and `npm test` on Windows, macOS and Linux
 - Releasing: set the same version in `package.json` and `extension/manifest.json`, add a `CHANGELOG.md` entry, and keep `README.md` (Thai) and `README.en.md` (English) in sync
+
+## License
+
+[MIT](LICENSE): use, change and share it, with credit.
+
+YouTube Music is a trademark of Google LLC and Discord is a trademark of Discord Inc.
+This project is not affiliated with or endorsed by either company.

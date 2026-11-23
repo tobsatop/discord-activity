@@ -1,0 +1,66 @@
+name: แจ้งปัญหา / Bug report
+description: ใช้งานไม่ได้ หรือทำงานไม่ถูกต้อง / Something doesn't work
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ลองดูตาราง "แก้ปัญหา" ใน README ก่อน / Please check the Troubleshooting table in the README first.
+        ตอบเป็นภาษาไทยหรืออังกฤษก็ได้ / Thai or English is fine.
+  - type: dropdown
+    id: os
+    attributes:
+      label: ระบบปฏิบัติการ / Operating system
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS
+        - Linux
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: เวอร์ชันส่วนขยาย / Extension version
+      description: chrome://extensions → เลขข้างชื่อ "YouTube Music → Discord" / the number next to its name
+      placeholder: "0.2.0"
+    validations:
+      required: true
+  - type: input
+    id: node
+    attributes:
+      label: เวอร์ชัน Node / Node version
+      description: ผลของคำสั่ง `node -v` / output of `node -v`
+      placeholder: v24.11.0
+  - type: dropdown
+    id: icon
+    attributes:
+      label: ไอคอนบนแถบ Chrome เป็นแบบไหน / What does the toolbar icon show?
+      options:
+        - สีแดง / Red
+        - สีเทา / Grey
+        - เทา + จุดส้ม / Grey + amber dot
+        - เทา + จุดแดง / Grey + red dot
+        - ไม่เห็นไอคอน / No icon
+    validations:
+      required: true
+  - type: textarea
+    id: tooltip
+    attributes:
+      label: ข้อความตอนชี้เมาส์ที่ไอคอน / Icon tooltip text
+      description: ชี้เมาส์ค้างที่ไอคอนแล้วพิมพ์ตาม หรือแนบรูป / Hover over the icon and copy it, or attach a screenshot
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: เกิดอะไรขึ้น / What happened?
+      description: ทำอะไร แล้วเห็นอะไร คาดว่าจะเห็นอะไร / What you did, what you saw, what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: host.log (ถ้ามี / if any)
+      description: |
+        ไฟล์ `host/host.log` ในโฟลเดอร์โปรเจกต์ (ส่วนท้าย ๆ พอ) มีชื่อเพลงที่ฟังอยู่ ลบออกได้ถ้าไม่อยากเปิดเผย
+        The last lines of `host/host.log` in the project folder. It contains song titles; remove them if you prefer.
+      render: text
