@@ -1,9 +1,9 @@
 # YouTube Music → Discord
 
+**ภาษาไทย** | [English](README.en.md)
+
 โชว์เพลงที่กำลังฟังบน YouTube Music (ใน Chrome) เป็นสถานะ **"Listening to …"** ใน Discord
 ใช้ได้ทั้ง **Windows** และ **macOS**
-
-> Show what you're playing on YouTube Music (in Chrome) as your Discord status. Works on Windows and macOS. Setup steps below are in Thai.
 
 <p><img src="docs/discord-status.png" alt="ตัวอย่างสถานะใน Discord: กำลังฟัง YouTube Music — ชื่อเพลง ศิลปิน อัลบั้ม และแถบเวลา"></p>
 
@@ -244,4 +244,4 @@ npm test         # ทดสอบโปรแกรมเสริมกับ 
 - แก้ไฟล์ใน `host/` → ปิดแท็บ YouTube Music ทุกแท็บแล้วเปิดใหม่ (โปรแกรมเสริมจะเริ่มใหม่)
 - ไอคอน: แก้ `extension/icons/icon.svg` แล้วรัน `npm run icons` (ต้องมี ImageMagick) จะได้ไอคอนทุกสถานะ (`icon-*` แดง, `idle-*` เทา, `warn-*` จุดส้ม, `error-*` จุดแดง) หรือวาง PNG ของตัวเองทับไฟล์เหล่านี้แล้วกด ↻
 - Windows PowerShell: ใช้ `npm.cmd` แทน `npm` เช่น `npm.cmd test`
-- ออกเวอร์ชันใหม่: เปลี่ยนเลขใน `package.json` และ `extension/manifest.json` ให้ตรงกัน แล้วเขียนรายการใน `CHANGELOG.md`
+- ออกเวอร์ชันใหม่: เปลี่ยนเลขใน `package.json` และ `extension/manifest.json` ให้ตรงกัน เขียนรายการใน `CHANGELOG.md` และแก้ README ให้ตรงกันทั้งสองภาษา (`README.md` ไทย, `README.en.md` อังกฤษ)

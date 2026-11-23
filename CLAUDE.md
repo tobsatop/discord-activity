@@ -2,7 +2,8 @@
 
 Shows the song playing on YouTube Music (Chrome) as the user's Discord Rich Presence.
 Chrome extension → native messaging host (Node) → Discord desktop app over local IPC.
-User-facing docs are in Thai (README.md, CHANGELOG.md). Most users are on Windows.
+User-facing docs: README.md (Thai, main) and README.en.md (English) — keep both in sync; CHANGELOG.md is Thai.
+Most users are on Windows.
 
 ## Commands
 
