@@ -1,9 +1,9 @@
 # YouTube Music → Discord
 
 โชว์เพลงที่กำลังฟังบน YouTube Music (ใน Chrome) เป็นสถานะ **"Listening to …"** ใน Discord
-ใช้ได้ทั้ง **macOS** และ **Windows**
+ใช้ได้ทั้ง **Windows** และ **macOS**
 
-> Show what you're playing on YouTube Music (in Chrome) as your Discord status. Works on macOS and Windows. Setup steps below are in Thai.
+> Show what you're playing on YouTube Music (in Chrome) as your Discord status. Works on Windows and macOS. Setup steps below are in Thai.
 
 <p><img src="docs/discord-status.png" alt="ตัวอย่างสถานะใน Discord: กำลังฟัง YouTube Music — ชื่อเพลง ศิลปิน อัลบั้ม และแถบเวลา"></p>
 
@@ -46,30 +46,6 @@
 ### ขั้นที่ 3 — ติดตั้งโปรแกรมเสริม
 
 <details open>
-<summary><b>macOS</b></summary>
-
-1. ติดตั้ง Node.js 24 LTS จาก https://nodejs.org (ไฟล์ `.pkg`) หรือใช้ `brew install node`
-2. เปิด Chrome อย่างน้อยหนึ่งครั้งก่อน (ตัวติดตั้งจะหาโฟลเดอร์ของ Chrome)
-3. เปิดแอป **Terminal** (กด `Cmd + Space` พิมพ์ Terminal)
-4. พิมพ์ `cd ` (มีเว้นวรรคต่อท้าย) แล้ว **ลากโฟลเดอร์โปรเจกต์มาวาง** ในหน้าต่าง Terminal → กด Enter
-5. เช็คเวอร์ชัน Node:
-   ```
-   node -v
-   ```
-   ต้องได้ `v22.18` ขึ้นไป
-6. รันตัวติดตั้ง:
-   ```
-   npm run setup
-   ```
-7. วาง Application ID (`Cmd + V`) → Enter
-8. ขึ้นข้อความ **"ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว"** = สำเร็จ
-
-ตัวติดตั้งเก็บตัวเปิดโปรแกรมไว้ที่ `~/Library/Application Support/ytm-discord-presence/` จึงวางโปรเจกต์ไว้ใน Documents ได้
-ถ้าใช้ nvm แล้วลบหรือเปลี่ยนเวอร์ชัน Node ให้รันตัวติดตั้งใหม่
-
-</details>
-
-<details open>
 <summary><b>Windows</b></summary>
 
 1. ติดตั้ง Node.js 24 LTS จาก https://nodejs.org (ไฟล์ `.msi` กด Next ไปจนจบ ใช้ค่าเริ่มต้นได้เลย)
@@ -90,6 +66,30 @@
 6. ขึ้นข้อความ **"ลงทะเบียนโปรแกรมเสริมกับ Chrome, Edge แล้ว"** = สำเร็จ
 
 ตัวติดตั้งเก็บตัวเปิดโปรแกรมไว้ที่ `%LOCALAPPDATA%\ytm-discord-presence\` และลงทะเบียนใน Registry ของผู้ใช้ (HKCU) ไม่ต้องใช้สิทธิ์ Administrator
+
+</details>
+
+<details open>
+<summary><b>macOS</b></summary>
+
+1. ติดตั้ง Node.js 24 LTS จาก https://nodejs.org (ไฟล์ `.pkg`) หรือใช้ `brew install node`
+2. เปิด Chrome อย่างน้อยหนึ่งครั้งก่อน (ตัวติดตั้งจะหาโฟลเดอร์ของ Chrome)
+3. เปิดแอป **Terminal** (กด `Cmd + Space` พิมพ์ Terminal)
+4. พิมพ์ `cd ` (มีเว้นวรรคต่อท้าย) แล้ว **ลากโฟลเดอร์โปรเจกต์มาวาง** ในหน้าต่าง Terminal → กด Enter
+5. เช็คเวอร์ชัน Node:
+   ```
+   node -v
+   ```
+   ต้องได้ `v22.18` ขึ้นไป
+6. รันตัวติดตั้ง:
+   ```
+   npm run setup
+   ```
+7. วาง Application ID (`Cmd + V`) → Enter
+8. ขึ้นข้อความ **"ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว"** = สำเร็จ
+
+ตัวติดตั้งเก็บตัวเปิดโปรแกรมไว้ที่ `~/Library/Application Support/ytm-discord-presence/` จึงวางโปรเจกต์ไว้ใน Documents ได้
+ถ้าใช้ nvm แล้วลบหรือเปลี่ยนเวอร์ชัน Node ให้รันตัวติดตั้งใหม่
 
 </details>
 
@@ -163,8 +163,8 @@ Chrome จะเปิดโปรแกรมเสริมให้เอง�
 
 ตัวติดตั้งจะจำ ID เดิมไว้ ถ้าจะเปลี่ยนให้ใส่ ID ใหม่ต่อท้ายคำสั่ง:
 
-- macOS: `npm run setup -- 123456789012345678`
 - Windows PowerShell: `node scripts\install.ts 123456789012345678`
+- macOS: `npm run setup -- 123456789012345678`
 
 จากนั้นปิดแท็บ YouTube Music **ทุกแท็บ** แล้วเปิดใหม่ เพื่อให้โปรแกรมเสริมเริ่มใหม่ด้วย ID ใหม่
 
@@ -178,7 +178,7 @@ Chrome จะเปิดโปรแกรมเสริมให้เอง�
 
 ## ถอนการติดตั้ง
 
-1. macOS: `npm run setup -- --uninstall` · Windows PowerShell: `node scripts\install.ts --uninstall`
+1. Windows PowerShell: `node scripts\install.ts --uninstall` · macOS: `npm run setup -- --uninstall`
 2. `chrome://extensions` → **Remove** ส่วนขยาย
 3. ลบโฟลเดอร์โปรเจกต์ และลบ Application ใน Discord Developer Portal ได้ถ้าไม่ใช้แล้ว
 
