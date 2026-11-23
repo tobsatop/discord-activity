@@ -170,7 +170,9 @@ Chrome จะเปิดโปรแกรมเสริมให้เอง�
 
 ## อัปเดตเป็นเวอร์ชันใหม่
 
-Application ID ไม่หาย และไม่ต้องติดตั้งใหม่
+- ดูเวอร์ชันที่ใช้อยู่: `chrome://extensions` → เลขข้างชื่อส่วนขยาย
+- ดูว่ามีอะไรใหม่: [CHANGELOG.md](CHANGELOG.md)
+- อัปเดตแล้ว Application ID ไม่หาย และไม่ต้องติดตั้งใหม่
 
 **ดาวน์โหลดแบบ ZIP (ไม่ใช้ git)** — ใช้คำสั่งเดียว:
 
@@ -185,7 +187,7 @@ Application ID ไม่หาย และไม่ต้องติดตั�
 **ใช้ git:** `git pull` แล้วทำข้อ 2–3
 
 <details>
-<summary>ถ้าในโฟลเดอร์ยังไม่มี <code>scripts/update.ts</code> (โหลดเวอร์ชันแรก ๆ ไว้) — อัปเดตด้วยมือครั้งเดียว</summary>
+<summary>ถ้าใช้เวอร์ชัน 0.1.0 อยู่ (ยังไม่มี <code>scripts/update.ts</code>) — อัปเดตด้วยมือครั้งเดียว</summary>
 
 1. หน้า GitHub → **Code** → **Download ZIP** → คลิกขวา → **Extract All**
 2. เปิดเข้าไปจนเจอโฟลเดอร์ที่มี `extension`, `host`, `scripts` อยู่ข้างใน
@@ -223,7 +225,10 @@ music.youtube.com ─▶ ส่วนขยาย Chrome ─▶ โปรแก�
 | `host/main.ts` | โปรแกรมเสริมที่ Chrome เปิดให้เอง (native messaging) |
 | `host/discord-ipc.ts` | คุยกับแอป Discord ผ่าน IPC ต่อใหม่เองเมื่อหลุด และจำกัดความถี่ตามที่ Discord กำหนด |
 | `host/activity.ts` | แปลงข้อมูลเพลงเป็นสถานะ Discord และตรวจข้อมูลที่ได้จากเบราว์เซอร์ |
-| `scripts/install.ts` | ลงทะเบียนโปรแกรมเสริมกับ Chrome (macOS / Windows / Linux) |
+| `extension/icons/` | ไอคอนต้นฉบับ `icon.svg` และ PNG ของแต่ละสถานะ |
+| `scripts/install.ts` | ลงทะเบียนโปรแกรมเสริมกับ Chrome (Windows / macOS / Linux) |
+| `scripts/update.ts` | อัปเดตโฟลเดอร์ที่โหลดแบบ ZIP เป็นเวอร์ชันล่าสุดจาก GitHub |
+| `scripts/icons.ts` | สร้าง PNG ทุกสถานะจาก `icon.svg` (ต้องมี ImageMagick) |
 
 Node รันไฟล์ `.ts` ได้ตรง ๆ จึงไม่ต้อง build ส่วนขยายเขียนเป็น `.js` แต่ TypeScript ตรวจ type ให้ด้วย
 
@@ -239,3 +244,4 @@ npm test         # ทดสอบโปรแกรมเสริมกับ 
 - แก้ไฟล์ใน `host/` → ปิดแท็บ YouTube Music ทุกแท็บแล้วเปิดใหม่ (โปรแกรมเสริมจะเริ่มใหม่)
 - ไอคอน: แก้ `extension/icons/icon.svg` แล้วรัน `npm run icons` (ต้องมี ImageMagick) จะได้ไอคอนทุกสถานะ (`icon-*` แดง, `idle-*` เทา, `warn-*` จุดส้ม, `error-*` จุดแดง) หรือวาง PNG ของตัวเองทับไฟล์เหล่านี้แล้วกด ↻
 - Windows PowerShell: ใช้ `npm.cmd` แทน `npm` เช่น `npm.cmd test`
+- ออกเวอร์ชันใหม่: เปลี่ยนเลขใน `package.json` และ `extension/manifest.json` ให้ตรงกัน แล้วเขียนรายการใน `CHANGELOG.md`
