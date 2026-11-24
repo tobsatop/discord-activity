@@ -7,3 +7,5 @@ node_modules/
 # written by the Node.js version (0.2 and older); holds the Application ID, never commit
 host/config.json
 host/*.log
+rsrc_windows_*.syso
+/build/

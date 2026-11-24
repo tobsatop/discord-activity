@@ -2,7 +2,7 @@
   <rect x="1" y="1" width="758" height="298" rx="18" fill="#F5F6FF" stroke="#DDE0FB" stroke-width="2"/>
   <rect x="24" y="22" width="712" height="256" rx="8" fill="#0C0C0C"/>
   <path d="M24,30 a8,8 0 0 1 8,-8 H728 a8,8 0 0 1 8,8 V48 H24 Z" fill="#2B2B2B"/>
-  <text x="40" y="40" font-size="12" fill="#D1D5DB">ytm-discord-windows-amd64.exe</text>
+  <text x="40" y="40" font-size="12" fill="#D1D5DB">YouTube-Music-Discord-Setup.exe</text>
   <g font-family="Consolas, Menlo, 'Courier New', 'Leelawadee UI', 'Noto Sans Thai', monospace" font-size="13" fill="#E5E7EB">
     <text x="40" y="78">วาง Application ID จาก Discord Developer Portal: <tspan fill="#FCD34D" font-weight="700">1234567890123456789</tspan></text>
     <text x="40" y="106" fill="#FFFFFF" font-weight="700">ลงทะเบียนโปรแกรมเสริมกับ Chrome, Edge แล้ว</text>

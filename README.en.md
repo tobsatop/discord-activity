@@ -42,8 +42,8 @@ Once; reuse it on every computer.
 
 | Computer | File |
 |---|---|
-| Windows | **[ytm-discord-windows-amd64.exe](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-windows-amd64.exe)** (ARM PCs such as Snapdragon: [this file](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-windows-arm64.exe)) |
-| macOS | **[ytm-discord-macos.zip](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-macos.zip)**, then double-click it to get the file `ytm-discord` |
+| Windows | **[YouTube-Music-Discord-Setup.exe](https://github.com/tobsatop/discord-activity/releases/latest/download/YouTube-Music-Discord-Setup.exe)** (ARM PCs such as Snapdragon: [this file](https://github.com/tobsatop/discord-activity/releases/latest/download/YouTube-Music-Discord-Setup-ARM.exe)) |
+| macOS | **[YouTube-Music-Discord-Setup-Mac.zip](https://github.com/tobsatop/discord-activity/releases/latest/download/YouTube-Music-Discord-Setup-Mac.zip)**, then double-click it to get the app **YouTube Music Discord Setup** |
 
 If the browser warns that the file isn't commonly downloaded, choose **Keep** (in Edge it's under the **…** button next to the file).
 
@@ -54,12 +54,14 @@ If the browser warns that the file isn't commonly downloaded, choose **Keep** (i
 
      <img src="docs/windows-smartscreen.svg" width="600" alt="Click More info, then Run anyway">
 
-   - **macOS:** click **Done**, then go to **System Settings → Privacy & Security**, scroll down and click **Open Anyway** (macOS 14 or older: right-click the file and choose **Open**)
+   - **macOS:** click **Done**, then go to **System Settings → Privacy & Security**, scroll down and click **Open Anyway** (macOS 14 or older: right-click the app and choose **Open**)
 
      <img src="docs/mac-open-anyway.svg" width="600" alt="Click Open Anyway in Privacy & Security">
 
-2. The installer window asks for the Application ID: paste it (Windows: right-click or `Ctrl + V` / macOS: `Cmd + V`) and press Enter. The question reads **วาง Application ID จาก Discord Developer Portal** ("paste the Application ID")
-3. The line **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** ("registered the helper with Chrome …") means it worked. The installer then opens a window with the **extension** folder selected
+2. Paste the Application ID when the installer asks for it; the question reads **วาง Application ID จาก Discord Developer Portal** ("paste the Application ID")
+   - **Windows:** in the installer window, right-click or press `Ctrl + V`, then press Enter
+   - **macOS:** in the dialog box, press `Cmd + V`, then click **ติดตั้ง** ("Install")
+3. The line **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** ("registered the helper with Chrome …") means it worked (on macOS it appears in a **ติดตั้งเสร็จแล้ว**, "Installed", dialog). The installer then opens a window with the **extension** folder selected
 
 <img src="docs/step-installer.svg" width="640" alt="Paste the Application ID; the installer shows the next steps">
 
@@ -179,9 +181,9 @@ Your version is shown at `chrome://extensions`; what's new is in [CHANGELOG.md](
 <summary><b>Uninstall</b></summary>
 
 1. Quit Chrome
-2. Open a Terminal in the folder with the installer (download it again if you deleted it) and run
-   - Windows: `.\ytm-discord-windows-amd64.exe --uninstall`
-   - macOS: `./ytm-discord --uninstall`
+2. Run the uninstall command
+   - **Windows:** open a Terminal in the folder with the installer (download it again if you deleted it) and run `.\YouTube-Music-Discord-Setup.exe --uninstall`
+   - **macOS:** open the Terminal app and run `"$HOME/Library/Application Support/ytm-discord-presence/ytm-discord-host" --uninstall`
 3. Open Chrome, go to `chrome://extensions` and click **Remove** on the extension
 4. Delete the application in the Discord Developer Portal if you no longer need it
 </details>

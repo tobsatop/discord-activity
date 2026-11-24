@@ -40,8 +40,8 @@
 
 | เครื่อง | ไฟล์ |
 |---|---|
-| Windows | **[ytm-discord-windows-amd64.exe](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-windows-amd64.exe)** (เครื่องชิป ARM เช่น Snapdragon ใช้ [ไฟล์นี้](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-windows-arm64.exe)) |
-| macOS | **[ytm-discord-macos.zip](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-macos.zip)** แล้วดับเบิลคลิกแตกไฟล์ จะได้ไฟล์ `ytm-discord` |
+| Windows | **[YouTube-Music-Discord-Setup.exe](https://github.com/tobsatop/discord-activity/releases/latest/download/YouTube-Music-Discord-Setup.exe)** (เครื่องชิป ARM เช่น Snapdragon ใช้ [ไฟล์นี้](https://github.com/tobsatop/discord-activity/releases/latest/download/YouTube-Music-Discord-Setup-ARM.exe)) |
+| macOS | **[YouTube-Music-Discord-Setup-Mac.zip](https://github.com/tobsatop/discord-activity/releases/latest/download/YouTube-Music-Discord-Setup-Mac.zip)** แล้วดับเบิลคลิกแตกไฟล์ จะได้แอป **YouTube Music Discord Setup** |
 
 ถ้าเบราว์เซอร์เตือนว่าไฟล์ไม่ค่อยมีคนโหลด ให้เลือก **Keep** (ใน Edge อยู่ในปุ่ม **…** ข้างชื่อไฟล์)
 
@@ -52,12 +52,14 @@
 
      <img src="docs/windows-smartscreen.svg" width="600" alt="กด More info แล้วกด Run anyway">
 
-   - **macOS:** กด **Done** แล้วไปที่ **System Settings → Privacy & Security** เลื่อนลงแล้วกด **Open Anyway** (macOS 14 หรือเก่ากว่า: คลิกขวาที่ไฟล์แล้วเลือก **Open**)
+   - **macOS:** กด **Done** แล้วไปที่ **System Settings → Privacy & Security** เลื่อนลงแล้วกด **Open Anyway** (macOS 14 หรือเก่ากว่า: คลิกขวาที่แอปแล้วเลือก **Open**)
 
      <img src="docs/mac-open-anyway.svg" width="600" alt="กด Open Anyway ใน Privacy & Security">
 
-2. หน้าต่างตัวติดตั้งจะถาม Application ID ให้วาง (Windows: คลิกขวา หรือ `Ctrl + V` / macOS: `Cmd + V`) แล้วกด Enter
-3. ขึ้นข้อความ **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** แปลว่าสำเร็จ ตัวติดตั้งจะเปิดหน้าต่างที่เลือกโฟลเดอร์ **extension** ไว้ให้
+2. วาง Application ID ที่ตัวติดตั้งถาม
+   - **Windows:** หน้าต่างตัวติดตั้งจะถาม คลิกขวาหรือกด `Ctrl + V` เพื่อวาง แล้วกด Enter
+   - **macOS:** กล่องข้อความจะถาม กด `Cmd + V` เพื่อวาง แล้วกด **ติดตั้ง**
+3. ขึ้นข้อความ **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** แปลว่าสำเร็จ (macOS ขึ้นในกล่อง **ติดตั้งเสร็จแล้ว**) ตัวติดตั้งจะเปิดหน้าต่างที่เลือกโฟลเดอร์ **extension** ไว้ให้
 
 <img src="docs/step-installer.svg" width="640" alt="วาง Application ID แล้วตัวติดตั้งบอกขั้นต่อไป">
 
@@ -177,9 +179,9 @@ refresh แท็บ YouTube Music หนึ่งครั้ง (ต้อง�
 <summary><b>ถอนการติดตั้ง</b></summary>
 
 1. ปิด Chrome
-2. เปิด Terminal ในโฟลเดอร์ที่มีตัวติดตั้ง (ถ้าลบไปแล้ว โหลดใหม่ได้) แล้วรัน
-   - Windows: `.\ytm-discord-windows-amd64.exe --uninstall`
-   - macOS: `./ytm-discord --uninstall`
+2. รันคำสั่งถอนการติดตั้ง
+   - **Windows:** เปิด Terminal ในโฟลเดอร์ที่มีตัวติดตั้ง (ถ้าลบไปแล้ว โหลดใหม่ได้) แล้วรัน `.\YouTube-Music-Discord-Setup.exe --uninstall`
+   - **macOS:** เปิดแอป Terminal แล้วรัน `"$HOME/Library/Application Support/ytm-discord-presence/ytm-discord-host" --uninstall`
 3. เปิด Chrome ไปที่ `chrome://extensions` แล้วกด **Remove** ส่วนขยาย
 4. ลบ Application ใน Discord Developer Portal ได้ถ้าไม่ใช้แล้ว
 </details>

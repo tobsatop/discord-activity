@@ -8,6 +8,7 @@
 package main
 
 import (
+	"bytes"
 	"embed"
 	"fmt"
 	"io/fs"
@@ -31,6 +32,7 @@ func main() {
 }
 
 func run(args []string) int {
+	args = dropProcessSerial(args)
 	if isHelperLaunch(args) {
 		return helper.Run(helper.Options{
 			Version: version,
@@ -58,7 +60,7 @@ func run(args []string) int {
 		panic(err)
 	}
 	home, _ := os.UserHomeDir()
-	return installer.Run(installer.Options{
+	opts := installer.Options{
 		Args:        args,
 		Stdin:       os.Stdin,
 		Stdout:      os.Stdout,
@@ -70,7 +72,37 @@ func run(args []string) int {
 		Extension:   extension,
 		Interactive: len(args) == 0,
 		Open:        installer.Open,
-	})
+	}
+	if useDialogs(args) {
+		// The macOS app: ask and report in dialog boxes, collecting what would
+		// have been printed for the last one.
+		var out bytes.Buffer
+		var folder string
+		opts.Stdout, opts.Stderr = &out, &out
+		opts.Ask = dialogAsk
+		// Reveal the extension folder only after the last dialog, so Finder
+		// coming to the front cannot hide that dialog.
+		opts.Open = func(dir string) { folder = dir }
+		opts.Finish = func(code int) {
+			dialogFinish(out.String(), code)
+			if folder != "" {
+				installer.Open(folder)
+			}
+		}
+	}
+	return installer.Run(opts)
+}
+
+// dropProcessSerial removes the -psn_… argument older macOS versions pass to
+// apps opened from Finder.
+func dropProcessSerial(args []string) []string {
+	out := args[:0:0]
+	for _, a := range args {
+		if !strings.HasPrefix(a, "-psn_") {
+			out = append(out, a)
+		}
+	}
+	return out
 }
 
 // isHelperLaunch: Chrome passes the caller's origin, and on Windows also

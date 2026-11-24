@@ -3,6 +3,19 @@
 เวอร์ชันใหม่อยู่บนสุด ดูเวอร์ชันที่ใช้อยู่ได้ที่ `chrome://extensions` (เลขข้างชื่อส่วนขยาย)
 วิธีอัปเดตอยู่ใน [README หัวข้ออัปเดต](README.md)
 
+## 0.3.1 — 2026-11-24
+
+### เปลี่ยน
+- ชื่อไฟล์ตัวติดตั้งอ่านง่ายขึ้น
+  - Windows: `YouTube-Music-Discord-Setup.exe` (เครื่อง ARM ใช้ `YouTube-Music-Discord-Setup-ARM.exe`)
+  - macOS: `YouTube-Music-Discord-Setup-Mac.zip` แตกแล้วได้แอป **YouTube Music Discord Setup**
+- macOS: ตัวติดตั้งเป็นแอป ใช้กล่องข้อความแทนหน้าต่าง Terminal
+- ตัวติดตั้งมีไอคอนของตัวเอง (แดงชมพู โน้ตดนตรี ป้ายสถานะสีม่วง)
+- Windows: ไฟล์ .exe มีข้อมูลโปรแกรม (ชื่อ คำอธิบาย รุ่น ผู้ทำ) ดูได้ที่คลิกขวา → Properties → Details
+
+### อัปเดตจาก 0.3.0
+- โหลดตัวติดตั้งใหม่แล้วดับเบิลคลิก จากนั้นกด ↻ บนการ์ดที่ `chrome://extensions` และ refresh แท็บ YouTube Music
+
 ## 0.3.0 — 2026-11-24
 
 ### เปลี่ยน

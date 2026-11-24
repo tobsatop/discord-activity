@@ -54,24 +54,7 @@ jobs:
       - run: go test ./...
 
       - name: Build
-        env:
-          CGO_ENABLED: '0'
-        run: |
-          mkdir -p dist build
-          build() { GOOS=$1 GOARCH=$2 go build -trimpath -ldflags='-s -w' -o "$3" .; }
-          build windows amd64 dist/ytm-discord-windows-amd64.exe
-          build windows arm64 dist/ytm-discord-windows-arm64.exe
-          build darwin arm64 build/ytm-discord-arm64
-          build darwin amd64 build/ytm-discord-amd64
-          # One Mac file for Apple Silicon and Intel; re-sign ad hoc after
-          # merging (Apple Silicon refuses to run unsigned code).
-          lipo -create -output build/ytm-discord build/ytm-discord-arm64 build/ytm-discord-amd64
-          codesign --force --sign - build/ytm-discord
-          lipo -info build/ytm-discord
-          build/ytm-discord --version
-          # Zipped so the download keeps its "executable" permission.
-          zip -j dist/ytm-discord-macos.zip build/ytm-discord
-          (cd dist && shasum -a 256 * > SHA256SUMS.txt && cat SHA256SUMS.txt)
+        run: ./scripts/build-release.sh
 
       - name: Publish
         env:
@@ -80,13 +63,13 @@ jobs:
           cat > notes.md <<NOTES
           **ดาวน์โหลด · Download**
 
-          - Windows: \`ytm-discord-windows-amd64.exe\` (เครื่องส่วนใหญ่ · most PCs) หรือ \`ytm-discord-windows-arm64.exe\` (เครื่อง ARM เช่น Snapdragon · ARM PCs)
-          - macOS: \`ytm-discord-macos.zip\` (ทั้ง Apple Silicon และ Intel · Apple Silicon and Intel)
+          - Windows: \`YouTube-Music-Discord-Setup.exe\` (เครื่องส่วนใหญ่ · most PCs) หรือ \`YouTube-Music-Discord-Setup-ARM.exe\` (เครื่อง ARM เช่น Snapdragon · ARM PCs)
+          - macOS: \`YouTube-Music-Discord-Setup-Mac.zip\` → แอป YouTube Music Discord Setup (ทั้ง Apple Silicon และ Intel · app for Apple Silicon and Intel)
 
-          ดับเบิลคลิกไฟล์ที่โหลดมา วาง Discord Application ID แล้วทำตามขั้นต่อไปที่โปรแกรมบอก ไม่ต้องติดตั้ง Node.js
+          ดับเบิลคลิกไฟล์ที่โหลดมา (Mac: แอปที่ได้จากไฟล์ zip) วาง Discord Application ID แล้วทำตามขั้นต่อไปที่โปรแกรมบอก ไม่ต้องติดตั้ง Node.js
           อัปเดต: โหลดไฟล์ใหม่แล้วดับเบิลคลิกอีกครั้ง
 
-          Double-click the file, paste your Discord Application ID and follow the next steps it prints. No Node.js needed.
+          Double-click the file (Mac: the app inside the zip), paste your Discord Application ID and follow the next steps it shows. No Node.js needed.
           To update, download the new file and run it again.
 
           มีอะไรใหม่ · What's new: [CHANGELOG.md](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/CHANGELOG.md) · คู่มือ · Guide: [README](https://github.com/${GITHUB_REPOSITORY}#readme)
