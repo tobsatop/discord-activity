@@ -161,6 +161,10 @@ func (c *Client) Stop() {
 }
 
 func (c *Client) stop(finish func()) {
+	if c.stopped {
+		finish() // already stopped (or stopping)
+		return
+	}
 	c.stopped = true
 	stopTimer(&c.retryTimer)
 	stopTimer(&c.flushTimer)
