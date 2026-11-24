@@ -1,0 +1,75 @@
+name: Release
+
+# Push a tag like v0.3.0 to build the downloads and publish a GitHub Release.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    # One macOS job: it tests, cross-compiles Windows, and builds the
+    # universal Mac binary (lipo and codesign exist only on macOS).
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: Tag matches the version everywhere
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          manifest=$(node -p "require('./extension/manifest.json').version")
+          pkg=$(node -p "require('./package.json').version")
+          gover=$(sed -n 's/^const version = "\(.*\)"$/\1/p' version.go)
+          echo "tag $tag · extension/manifest.json $manifest · package.json $pkg · version.go $gover"
+          if [ "$tag" != "$manifest" ] || [ "$tag" != "$pkg" ] || [ "$tag" != "$gover" ]; then
+            echo "::error::the tag must equal the version in extension/manifest.json, package.json and version.go"
+            exit 1
+          fi
+
+      - run: go vet ./...
+      - run: go test ./...
+
+      - name: Build
+        env:
+          CGO_ENABLED: '0'
+        run: |
+          mkdir -p dist build
+          build() { GOOS=$1 GOARCH=$2 go build -trimpath -ldflags='-s -w' -o "$3" .; }
+          build windows amd64 dist/ytm-discord-windows-amd64.exe
+          build windows arm64 dist/ytm-discord-windows-arm64.exe
+          build darwin arm64 build/ytm-discord-arm64
+          build darwin amd64 build/ytm-discord-amd64
+          # One Mac file for Apple Silicon and Intel; re-sign ad hoc after
+          # merging (Apple Silicon refuses to run unsigned code).
+          lipo -create -output build/ytm-discord build/ytm-discord-arm64 build/ytm-discord-amd64
+          codesign --force --sign - build/ytm-discord
+          lipo -info build/ytm-discord
+          build/ytm-discord --version
+          # Zipped so the download keeps its "executable" permission.
+          zip -j dist/ytm-discord-macos.zip build/ytm-discord
+          (cd dist && shasum -a 256 * > SHA256SUMS.txt && cat SHA256SUMS.txt)
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat > notes.md <<NOTES
+          **ดาวน์โหลด · Download**
+
+          - Windows: \`ytm-discord-windows-amd64.exe\` (เครื่องส่วนใหญ่ · most PCs) หรือ \`ytm-discord-windows-arm64.exe\` (เครื่อง ARM เช่น Snapdragon · ARM PCs)
+          - macOS: \`ytm-discord-macos.zip\` (ทั้ง Apple Silicon และ Intel · Apple Silicon and Intel)
+
+          ดับเบิลคลิกไฟล์ที่โหลดมา วาง Discord Application ID แล้วทำตามขั้นต่อไปที่โปรแกรมบอก ไม่ต้องติดตั้ง Node.js
+          อัปเดต: โหลดไฟล์ใหม่แล้วดับเบิลคลิกอีกครั้ง
+
+          Double-click the file, paste your Discord Application ID and follow the next steps it prints. No Node.js needed.
+          To update, download the new file and run it again.
+
+          มีอะไรใหม่ · What's new: [CHANGELOG.md](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/CHANGELOG.md) · คู่มือ · Guide: [README](https://github.com/${GITHUB_REPOSITORY}#readme)
+          NOTES
+          gh release create "$GITHUB_REF_NAME" dist/* --verify-tag --title "$GITHUB_REF_NAME" --notes-file notes.md
