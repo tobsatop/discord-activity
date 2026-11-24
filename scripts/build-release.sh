@@ -11,8 +11,8 @@ mkdir -p dist build
 export CGO_ENABLED=0
 
 # The icon: Windows resources (linked into the .exe) and a macOS iconset.
-go run ./tools/genicons -version "$VERSION" -syso . -iconset build/AppIcon.iconset
 trap 'rm -f rsrc_windows_*.syso' EXIT
+go run ./tools/genicons -version "$VERSION" -syso . -iconset build/AppIcon.iconset
 
 build() { GOOS=$1 GOARCH=$2 go build -trimpath -ldflags='-s -w' -o "$3" .; }
 build windows amd64 dist/YouTube-Music-Discord-Setup.exe
@@ -38,7 +38,7 @@ cat > "build/$APP/Contents/Info.plist" <<PLIST
 	<key>CFBundlePackageType</key><string>APPL</string>
 	<key>CFBundleShortVersionString</key><string>$VERSION</string>
 	<key>CFBundleVersion</key><string>$VERSION</string>
-	<key>LSMinimumSystemVersion</key><string>11.0</string>
+	<key>LSMinimumSystemVersion</key><string>12.0</string>
 	<key>LSUIElement</key><true/>
 </dict>
 </plist>

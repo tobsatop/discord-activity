@@ -77,9 +77,18 @@ func run(args []string) int {
 		// The macOS app: ask and report in dialog boxes, collecting what would
 		// have been printed for the last one.
 		var out bytes.Buffer
+		var folder string
 		opts.Stdout, opts.Stderr = &out, &out
 		opts.Ask = dialogAsk
-		opts.Finish = func(code int) { dialogFinish(out.String(), code) }
+		// Reveal the extension folder only after the last dialog, so Finder
+		// coming to the front cannot hide that dialog.
+		opts.Open = func(dir string) { folder = dir }
+		opts.Finish = func(code int) {
+			dialogFinish(out.String(), code)
+			if folder != "" {
+				installer.Open(folder)
+			}
+		}
 	}
 	return installer.Run(opts)
 }

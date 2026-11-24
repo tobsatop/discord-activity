@@ -9,8 +9,17 @@ if (-not $env:YTM_DISCORD_DATA_DIR -or -not $env:YTM_DISCORD_REGISTRY_KEY) {
 $origin = 'chrome-extension://bfcijjaglbmlpnnpnekjcamlmgdkdebb/'
 $root = "HKCU:\$env:YTM_DISCORD_REGISTRY_KEY"
 
+# Build the way releases are built: with the icon and version details linked in.
+go run ./tools/genicons -version 0.0.0 -syso .
+if ($LASTEXITCODE -ne 0) { throw 'genicons failed' }
 go build -o ytm-discord.exe .
-if ($LASTEXITCODE -ne 0) { throw 'build failed' }
+$built = $LASTEXITCODE
+Remove-Item rsrc_windows_*.syso
+if ($built -ne 0) { throw 'build failed' }
+$info = (Get-Item ./ytm-discord.exe).VersionInfo
+if ($info.CompanyName -ne 'tobsatop' -or $info.ProductName -notlike 'YouTube Music*') {
+  throw "version details missing: company '$($info.CompanyName)', product '$($info.ProductName)'"
+}
 
 # 1. Install
 ./ytm-discord.exe 123456789012345678
