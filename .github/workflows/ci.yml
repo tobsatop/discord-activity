@@ -35,26 +35,7 @@ jobs:
         env:
           YTM_DISCORD_DATA_DIR: ${{ runner.temp }}\ytmd-data
           YTM_DISCORD_REGISTRY_KEY: Software\ytmd-ci
-        run: |
-          go build -o ytm-discord.exe .
-          if ($LASTEXITCODE -ne 0) { exit 1 }
-          ./ytm-discord.exe 123456789012345678
-          if ($LASTEXITCODE -ne 0) { throw 'install failed' }
-          $key = 'HKCU:\Software\ytmd-ci\Google\Chrome\NativeMessagingHosts\local.ytm_discord_presence'
-          $manifestFile = (Get-ItemProperty $key).'(default)'
-          if (-not (Test-Path $manifestFile)) { throw "host manifest missing: $manifestFile" }
-          $manifest = Get-Content $manifestFile -Raw | ConvertFrom-Json
-          if (-not (Test-Path $manifest.path)) { throw "helper missing: $($manifest.path)" }
-          if ($manifest.allowed_origins[0] -ne 'chrome-extension://bfcijjaglbmlpnnpnekjcamlmgdkdebb/') { throw "allowed_origins: $($manifest.allowed_origins)" }
-          & $manifest.path --version
-          if ($LASTEXITCODE -ne 0) { throw 'the installed helper does not run' }
-          if (-not (Test-Path "$env:YTM_DISCORD_DATA_DIR\extension\manifest.json")) { throw 'extension not unpacked' }
-          if (-not (Test-Path 'HKCU:\Software\ytmd-ci\Microsoft\Edge\NativeMessagingHosts\local.ytm_discord_presence')) { throw 'Edge not registered' }
-          ./ytm-discord.exe --uninstall
-          if ($LASTEXITCODE -ne 0) { throw 'uninstall failed' }
-          if (Test-Path $key) { throw 'registry key not removed' }
-          if (Test-Path $env:YTM_DISCORD_DATA_DIR) { throw 'data folder not removed' }
-          Remove-Item -Recurse 'HKCU:\Software\ytmd-ci'
+        run: ./scripts/smoke-windows.ps1
 
   extension:
     name: Extension type-check

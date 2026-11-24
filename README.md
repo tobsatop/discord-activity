@@ -57,13 +57,13 @@
      <img src="docs/mac-open-anyway.svg" width="600" alt="กด Open Anyway ใน Privacy & Security">
 
 2. หน้าต่างตัวติดตั้งจะถาม Application ID ให้วาง (Windows: คลิกขวา หรือ `Ctrl + V` / macOS: `Cmd + V`) แล้วกด Enter
-3. ขึ้นข้อความสีเขียว **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** แปลว่าสำเร็จ ตัวติดตั้งจะเปิดโฟลเดอร์ส่วนขยายและหน้า Chrome ให้เอง
+3. ขึ้นข้อความ **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** แปลว่าสำเร็จ ตัวติดตั้งจะเปิดหน้าต่างที่เลือกโฟลเดอร์ **extension** ไว้ให้
 
 <img src="docs/step-installer.svg" width="640" alt="วาง Application ID แล้วตัวติดตั้งบอกขั้นต่อไป">
 
 ### 4. เพิ่มส่วนขยายใน Chrome
 
-1. ที่หน้า `chrome://extensions` เปิด **Developer mode** มุมขวาบน
+1. เปิด Chrome พิมพ์ `chrome://extensions` ในช่อง address แล้วเปิด **Developer mode** มุมขวาบน
 2. กด **Load unpacked** แล้วเลือกโฟลเดอร์ **extension** ที่ตัวติดตั้งเปิดไว้ให้
    - หรือลากโฟลเดอร์ **extension** จากหน้าต่างนั้นมาวางในหน้า `chrome://extensions` ก็ได้
 3. กดรูปจิ๊กซอว์บนแถบ Chrome แล้วปักหมุด **YouTube Music → Discord** ให้เห็นไอคอน
@@ -125,6 +125,8 @@ refresh แท็บ YouTube Music หนึ่งครั้ง (ต้อง�
 <summary><b>ติดตั้งไม่ได้</b></summary>
 
 - **Windows ไม่มีปุ่ม Run anyway:** คลิกขวาที่ไฟล์ → Properties → ติ๊ก **Unblock** → OK แล้วเปิดใหม่
+- **Windows 11 ขึ้นว่า Smart App Control บล็อกไว้:** โหมดนี้บล็อกโปรแกรมที่ไม่มีลายเซ็นทุกตัว และไม่มีทางอนุญาตเฉพาะไฟล์ ตอนนี้ยังใช้บนเครื่องที่เปิดโหมดนี้ไม่ได้
+- **Windows Security เตือนว่าไฟล์อันตราย:** โปรแกรมที่ไม่มีลายเซ็นอาจถูกเตือนผิดได้ ไฟล์ทั้งหมดสร้างจากโค้ดใน repo นี้โดย GitHub ถ้าไม่มั่นใจ อย่าข้ามคำเตือน
 - **"ไม่พบ Chrome บนเครื่องนี้":** ติดตั้งหรือเปิด Chrome หนึ่งครั้ง แล้วรันตัวติดตั้งใหม่
 - **Load unpacked ขึ้น `Manifest file is missing`:** เลือกโฟลเดอร์ `extension` ข้างใน ไม่ใช่โฟลเดอร์ที่ครอบอยู่
 - **หาโฟลเดอร์ส่วนขยายไม่เจอ:** อยู่ที่ `%LOCALAPPDATA%\ytm-discord-presence\extension` (Windows) หรือ `~/Library/Application Support/ytm-discord-presence/extension` (macOS กด `Cmd + Shift + G` ในหน้าต่างเลือกโฟลเดอร์แล้ววางที่อยู่นี้)

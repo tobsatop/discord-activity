@@ -9,7 +9,26 @@ permissions:
   contents: write
 
 jobs:
+  windows:
+    # The downloads are cross-built on macOS, so test the installer on real
+    # Windows before anything is published.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - run: go vet ./...
+      - run: go test ./...
+      - name: Installer smoke test
+        shell: pwsh
+        env:
+          YTM_DISCORD_DATA_DIR: ${{ runner.temp }}\ytmd-data
+          YTM_DISCORD_REGISTRY_KEY: Software\ytmd-release-check
+        run: ./scripts/smoke-windows.ps1
+
   release:
+    needs: windows
     # One macOS job: it tests, cross-compiles Windows, and builds the
     # universal Mac binary (lipo and codesign exist only on macOS).
     runs-on: macos-latest

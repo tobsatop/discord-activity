@@ -39,7 +39,7 @@ type Options struct {
 	Executable  string // the running program, copied into the data folder
 	Extension   fs.FS  // the extension's files, manifest.json at the root
 	Interactive bool   // double-clicked: ask, open the folder, wait for Enter
-	// Open shows the extension folder and tries to open chrome://extensions.
+	// Open shows the extension folder in Explorer/Finder.
 	// Called only when Interactive.
 	Open func(extensionDir string)
 }

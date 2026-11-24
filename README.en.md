@@ -59,13 +59,13 @@ If the browser warns that the file isn't commonly downloaded, choose **Keep** (i
      <img src="docs/mac-open-anyway.svg" width="600" alt="Click Open Anyway in Privacy & Security">
 
 2. The installer window asks for the Application ID: paste it (Windows: right-click or `Ctrl + V` / macOS: `Cmd + V`) and press Enter. The question reads **วาง Application ID จาก Discord Developer Portal** ("paste the Application ID")
-3. The green line **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** ("registered the helper with Chrome …") means it worked. The installer then opens the extension folder and Chrome for you
+3. The line **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** ("registered the helper with Chrome …") means it worked. The installer then opens a window with the **extension** folder selected
 
 <img src="docs/step-installer.svg" width="640" alt="Paste the Application ID; the installer shows the next steps">
 
 ### 4. Add the extension to Chrome
 
-1. On the `chrome://extensions` page, turn on **Developer mode** at the top right
+1. Open Chrome, type `chrome://extensions` in the address bar and turn on **Developer mode** at the top right
 2. Click **Load unpacked** and choose the **extension** folder the installer opened for you
    - Or drag that **extension** folder onto the `chrome://extensions` page
 3. Click the puzzle icon in Chrome's toolbar and pin **YouTube Music → Discord** so you can see its icon
@@ -127,6 +127,8 @@ You can't click Listen on YouTube Music on your own profile; that's how Discord 
 <summary><b>The installer won't run</b></summary>
 
 - **Windows shows no Run anyway button:** right-click the file → Properties → tick **Unblock** → OK, then open it again
+- **Windows 11 says Smart App Control blocked it:** that mode blocks every unsigned program and can't allow a single file, so this doesn't work on PCs with it turned on yet
+- **Windows Security says the file is dangerous:** unsigned programs can get false alarms. Every download is built from this repo's code by GitHub; if you're unsure, don't skip the warning
 - **"ไม่พบ Chrome บนเครื่องนี้"** (Chrome not found): install or open Chrome once, then run the installer again
 - **Load unpacked says `Manifest file is missing`:** choose the `extension` folder itself, not the folder around it
 - **Can't find the extension folder:** it is `%LOCALAPPDATA%\ytm-discord-presence\extension` (Windows) or `~/Library/Application Support/ytm-discord-presence/extension` (macOS: press `Cmd + Shift + G` in the folder picker and paste this path)

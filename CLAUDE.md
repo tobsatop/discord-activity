@@ -17,7 +17,9 @@ npm run icons                   # rebuild every icon PNG from extension/icons/ic
 ```
 
 CI (`.github/workflows/ci.yml`): go vet + test on Windows, macOS and Linux (`-race` on Linux), the
-extension type-check, and a Windows installer smoke test (temp data dir + throwaway HKCU key).
+extension type-check, and the Windows installer smoke test `scripts/smoke-windows.ps1` (temp data dir +
+throwaway HKCU key; also re-installs while the helper runs). release.yml runs the same smoke test on
+windows-latest before it publishes anything.
 
 go.mod: `go 1.24.0`, `toolchain go1.26.11` (an older Go switches automatically). Deps: go-winio
 v0.6.2 (Windows pipes) and x/sys v0.41.0 — newer releases of both need a newer `go` line.
@@ -50,7 +52,8 @@ The extension is plain `.js` with `// @ts-check`; no build step.
 `YTM_DISCORD_DATA_DIR`, `YTM_DISCORD_BROWSER_HOME` (stands in for home when looking for browsers),
 `YTM_DISCORD_REGISTRY_KEY` (replaces `HKCU\Software`), `YTM_DISCORD_IPC` (Discord socket/pipe path
 without `-N`), `DISCORD_CLIENT_ID`. The root and discordipc `TestMain`s set them all to temp values.
-The installer opens Explorer/Finder and Chrome only when double-clicked (no args), never in tests.
+The installer reveals the extension folder in Explorer/Finder only when double-clicked (no args), never in
+tests. It does not open Chrome: Chrome ignores chrome:// URLs passed from outside, so users type chrome://extensions.
 
 ## Gotchas (all found the hard way)
 
