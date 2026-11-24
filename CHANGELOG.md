@@ -3,18 +3,42 @@
 เวอร์ชันใหม่อยู่บนสุด ดูเวอร์ชันที่ใช้อยู่ได้ที่ `chrome://extensions` (เลขข้างชื่อส่วนขยาย)
 วิธีอัปเดตอยู่ใน [README หัวข้ออัปเดต](README.md)
 
-## ยังไม่ออกเวอร์ชัน
+## 0.3.0 — 2026-11-24
+
+### เปลี่ยน
+- ไม่ต้องติดตั้ง Node.js และไม่ต้องพิมพ์คำสั่งใน Terminal แล้ว
+  - โหลดไฟล์เดียวจากหน้า Releases บน GitHub แล้วดับเบิลคลิก
+  - Windows: `ytm-discord-windows-amd64.exe` (เครื่อง ARM ใช้ `ytm-discord-windows-arm64.exe`)
+  - macOS: `ytm-discord-macos.zip` ใช้ได้ทั้ง Apple Silicon และ Intel
+  - วาง Application ID แล้วโปรแกรมติดตั้งตัวเอง แตกส่วนขยายไว้ให้ และเปิดโฟลเดอร์ส่วนขยายให้
+- โปรแกรมเสริมเขียนใหม่ด้วยภาษา Go (เดิมเป็น Node.js) ทำงานเหมือนเดิมทุกอย่าง
+- ไฟล์ทั้งหมดย้ายไปอยู่ในโฟลเดอร์ข้อมูลแอปของระบบ
+  - Windows: `%LOCALAPPDATA%\ytm-discord-presence\`
+  - macOS: `~/Library/Application Support/ytm-discord-presence/`
+  - ข้างในมี `config.json` (Application ID), `host.log` และโฟลเดอร์ `extension` ที่ใช้กด Load unpacked
+- `host.log` ไม่เก็บชื่อผู้ใช้ Discord แล้ว เพราะคนจะแนบ log มาตอนแจ้งปัญหา
 
 ### เพิ่ม
 - README ภาษาอังกฤษ (`README.en.md`) และลิงก์สลับภาษาด้านบนของทั้งสองไฟล์
 - License แบบ MIT
-- ตรวจโค้ดอัตโนมัติด้วย GitHub Actions บน Windows และ Linux (Node 22 และ 24) และ macOS (Node 24)
+- ตรวจโค้ดอัตโนมัติด้วย GitHub Actions บน Windows, macOS และ Linux
   - บน Windows ทดสอบตัวติดตั้งด้วย: ลงทะเบียน → ตรวจ → ถอน
+- push tag เวอร์ชันแล้ว GitHub สร้างไฟล์ให้โหลดและหน้า Release เอง
 - แบบฟอร์มแจ้งปัญหาบน GitHub (ไทย/อังกฤษ)
 
-### เปลี่ยน
-- `host/host.log` ไม่เก็บชื่อผู้ใช้ Discord แล้ว เพราะคนจะแนบ log มาตอนแจ้งปัญหา
-- ชุดทดสอบรันบน Windows ได้ (Discord จำลองใช้ named pipe)
+### ลบ
+- `npm run setup` / `node scripts\install.ts` และคำสั่งอัปเดต `scripts/update.ts`
+  - อัปเดตต่อจากนี้: โหลดไฟล์ใหม่แล้วดับเบิลคลิกอีกครั้ง
+  - ถอนการติดตั้ง: รันโปรแกรมพร้อม `--uninstall`
+
+### อัปเดตจาก 0.2.0
+1. โหลดไฟล์ของเครื่องตัวเองจากหน้า Releases แล้วดับเบิลคลิก
+   - ใช้ Application ID เดิมต่อให้เอง ไม่ต้องวางใหม่
+2. ส่วนขยายย้ายไปอยู่ในโฟลเดอร์ใหม่ที่โปรแกรมบอก
+   - ที่ `chrome://extensions` กด Remove การ์ดเดิม
+   - กด Load unpacked แล้วเลือกโฟลเดอร์ใหม่
+3. refresh แท็บ YouTube Music
+4. ลบโฟลเดอร์โปรเจกต์เดิมได้เลย และถอน Node.js ได้ถ้าไม่ได้ใช้ทำอย่างอื่น
 
 ## 0.2.0 — 2026-11-24
 
