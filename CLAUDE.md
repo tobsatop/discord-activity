@@ -89,5 +89,7 @@ tests. It does not open Chrome: Chrome ignores chrome:// URLs passed from outsid
 2. Add a CHANGELOG.md entry (Thai, with the release date); update both READMEs if steps changed.
 3. `go vet ./... && go test ./... && npm run check`, commit, then push a tag `vX.Y.Z`.
 4. `.github/workflows/release.yml` checks the tag against the three versions, tests, builds
-   `ytm-discord-windows-amd64.exe`, `ytm-discord-windows-arm64.exe`, `ytm-discord-macos.zip` (universal)
+   `YouTube-Music-Discord-Setup.exe`, `YouTube-Music-Discord-Setup-ARM.exe` (icon + version details from
+   `tools/genicons`), `YouTube-Music-Discord-Setup-Mac.zip` ("YouTube Music Discord Setup.app", universal,
+   talks through dialogs; built by `scripts/build-release.sh`)
    and `SHA256SUMS.txt`, and publishes the GitHub Release with `gh release create`.

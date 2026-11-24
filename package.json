@@ -1,6 +1,6 @@
 {
   "name": "ytm-discord-presence",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "description": "Show the song playing on YouTube Music (Chrome) as your Discord status",
   "keywords": [

@@ -42,6 +42,13 @@ type Options struct {
 	// Open shows the extension folder in Explorer/Finder.
 	// Called only when Interactive.
 	Open func(extensionDir string)
+	// Ask, if set, asks for the Application ID instead of reading Stdin (the
+	// macOS app shows a dialog). note explains a retry; ok is false if the
+	// person cancelled.
+	Ask func(note string) (id string, ok bool)
+	// Finish, if set, replaces "press Enter" at the end of an interactive run
+	// (the macOS app shows what was printed in a dialog).
+	Finish func(code int)
 }
 
 type run struct {
@@ -53,7 +60,10 @@ type run struct {
 func Run(opts Options) int {
 	r := &run{Options: opts, in: bufio.NewReader(opts.Stdin)}
 	code := r.dispatch()
-	if r.Interactive {
+	switch {
+	case r.Interactive && r.Finish != nil:
+		r.Finish(code)
+	case r.Interactive:
 		// A double-clicked window closes when the program ends; keep it readable.
 		fmt.Fprintln(r.Stdout)
 		fmt.Fprint(r.Stdout, "กด Enter เพื่อปิดหน้าต่างนี้")
@@ -207,6 +217,20 @@ func (r *run) resolveClientID(arg, configFile, dataDir string) (string, error) {
 			return existing, nil
 		}
 	}
+	if r.Ask != nil {
+		note := ""
+		for {
+			id, ok := r.Ask(note)
+			if !ok {
+				fmt.Fprintln(r.Stderr, "ยกเลิกการติดตั้ง")
+				return "", exitError{}
+			}
+			if id = strings.TrimSpace(id); helper.ClientIDPattern.MatchString(id) {
+				return id, nil
+			}
+			note = badClientIDMessage
+		}
+	}
 	for {
 		fmt.Fprint(r.Stdout, "วาง Application ID จาก Discord Developer Portal: ")
 		line, err := r.in.ReadString('\n')
@@ -225,8 +249,10 @@ func (r *run) resolveClientID(arg, configFile, dataDir string) (string, error) {
 	}
 }
 
+const badClientIDMessage = "Application ID ต้องเป็นตัวเลข 17–20 หลัก (Discord Developer Portal → General Information)"
+
 func (r *run) badClientID() {
-	fmt.Fprintln(r.Stderr, "Application ID ต้องเป็นตัวเลข 17–20 หลัก (Discord Developer Portal → General Information)")
+	fmt.Fprintln(r.Stderr, badClientIDMessage)
 }
 
 func (r *run) uninstall() int {
