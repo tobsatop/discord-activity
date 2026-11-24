@@ -19,12 +19,12 @@
   <text x="180" y="144" font-size="13" fill="#5F6368">Pack extension</text>
   <!-- folder picker -->
   <rect x="300" y="132" width="404" height="128" rx="10" fill="#F8F9FA" stroke="#D1D5DB"/>
-  <text x="320" y="156" font-size="12" fill="#5F6368">discord-activity</text>
+  <text x="320" y="156" font-size="12" fill="#5F6368">ytm-discord-presence</text>
   <g font-size="13">
-    <text x="336" y="182" fill="#5F6368">📁 docs</text>
+    <text x="336" y="182" fill="#5F6368">📄 config.json</text>
     <rect x="326" y="190" width="200" height="24" rx="5" fill="#D2E3FC"/>
     <text x="336" y="207" fill="#174EA6" font-weight="700">📁 extension</text>
-    <text x="336" y="234" fill="#5F6368">📁 host</text>
+    <text x="336" y="234" fill="#5F6368">📄 host.log</text>
   </g>
   <rect x="604" y="222" width="84" height="28" rx="5" fill="#1A73E8"/>
   <text x="646" y="241" font-size="13" font-weight="600" fill="#fff" text-anchor="middle">Select</text>

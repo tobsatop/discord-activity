@@ -17,7 +17,7 @@
 
 - Shows the song, artist, album art, a time bar and a Listen on YouTube Music button
 - The status clears by itself when you pause, during ads, or when you close the tab
-- Set up once; nothing to keep running
+- Set up once; nothing to keep running and nothing else to install
 
 ## Before you start
 
@@ -26,7 +26,7 @@ Works with **music.youtube.com** only, not regular youtube.com.
 
 > The installer and the toolbar tooltips show messages in Thai. The ones you need are translated below.
 
-## Install (once per computer, about 10 minutes)
+## Install (once per computer, about 5 minutes)
 
 ### 1. Create a Discord Application ID
 
@@ -38,35 +38,37 @@ Once; reuse it on every computer.
 
 <img src="docs/step-discord-app-id.svg" width="640" alt="Click New Application, then Copy next to Application ID">
 
-### 2. Install Node.js and download the project
+### 2. Download the installer
 
-1. Install **Node.js 24 LTS** from https://nodejs.org (click Next until done; the defaults are fine)
-2. On this page, click the green **Code** button, choose **Download ZIP**, then extract it (Windows: right-click → Extract All)
-3. Move the folder somewhere permanent, such as Documents (if you move it later, redo step 3)
+| Computer | File |
+|---|---|
+| Windows | **[ytm-discord-windows-amd64.exe](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-windows-amd64.exe)** (ARM PCs such as Snapdragon: [this file](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-windows-arm64.exe)) |
+| macOS | **[ytm-discord-macos.zip](https://github.com/tobsatop/discord-activity/releases/latest/download/ytm-discord-macos.zip)**, then double-click it to get the file `ytm-discord` |
+
+If the browser warns that the file isn't commonly downloaded, choose **Keep** (in Edge it's under the **…** button next to the file).
 
 ### 3. Run the installer
 
-**Windows**
-1. Open the project folder, right-click an empty area and choose **Open in Terminal** (Windows 10: hold `Shift`, right-click → **Open PowerShell window here**)
-2. Type `node scripts\install.ts` and press Enter
-3. Paste the Application ID (right-click or `Ctrl + V`) and press Enter
+1. Double-click the downloaded file. The first time, your computer warns you because the program isn't code-signed
+   - **Windows:** click **More info**, then **Run anyway**
 
-**macOS**
-1. Open Chrome once first, then open the **Terminal** app (`Cmd + Space`, type Terminal)
-2. Type `cd ` (with a space), drag the project folder into the window and press Enter
-3. Type `npm run setup`, press Enter, paste the Application ID (`Cmd + V`) and press Enter
+     <img src="docs/windows-smartscreen.svg" width="600" alt="Click More info, then Run anyway">
 
-The green line **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** ("registered the helper with Chrome …") means it worked.
-The question before it, **วาง Application ID จาก Discord Developer Portal**, means "paste the Application ID".
+   - **macOS:** click **Done**, then go to **System Settings → Privacy & Security**, scroll down and click **Open Anyway** (macOS 14 or older: right-click the file and choose **Open**)
 
-<img src="docs/step-installer.svg" width="640" alt="Run node scripts\install.ts and paste the Application ID">
+     <img src="docs/mac-open-anyway.svg" width="600" alt="Click Open Anyway in Privacy & Security">
+
+2. The installer window asks for the Application ID: paste it (Windows: right-click or `Ctrl + V` / macOS: `Cmd + V`) and press Enter. The question reads **วาง Application ID จาก Discord Developer Portal** ("paste the Application ID")
+3. The green line **ลงทะเบียนโปรแกรมเสริมกับ Chrome … แล้ว** ("registered the helper with Chrome …") means it worked. The installer then opens the extension folder and Chrome for you
+
+<img src="docs/step-installer.svg" width="640" alt="Paste the Application ID; the installer shows the next steps">
 
 ### 4. Add the extension to Chrome
 
-1. Type `chrome://extensions` in the address bar
-2. Turn on **Developer mode** at the top right
-3. Click **Load unpacked** and choose the **extension** folder inside the project (not the whole project folder)
-4. Click the puzzle icon in Chrome's toolbar and pin **YouTube Music → Discord** so you can see its icon
+1. On the `chrome://extensions` page, turn on **Developer mode** at the top right
+2. Click **Load unpacked** and choose the **extension** folder the installer opened for you
+   - Or drag that **extension** folder onto the `chrome://extensions` page
+3. Click the puzzle icon in Chrome's toolbar and pin **YouTube Music → Discord** so you can see its icon
 
 <img src="docs/step-chrome-extension.svg" width="640" alt="Turn on Developer mode, click Load unpacked and choose the extension folder">
 
@@ -80,7 +82,7 @@ The question before it, **วาง Application ID จาก Discord Developer P
 ### Done
 
 Within a few seconds the extension icon turns **red** and your Discord profile shows "Listening to …".
-From now on, just open Discord and play music in Chrome; there is nothing else to install.
+From now on, just open Discord and play music in Chrome. You can delete the downloaded file.
 
 ## What the icon means
 
@@ -98,7 +100,7 @@ Hover over the icon for details.
 <details>
 <summary><b>The icon has a red dot</b></summary>
 
-- **"เปิดโปรแกรมเสริมไม่ได้"** (the helper won't start): step 3 wasn't done, or the folder was moved, or Node was removed. Redo step 3 and wait about 30 seconds
+- **"เปิดโปรแกรมเสริมไม่ได้"** (the helper won't start) or **"ยังไม่ได้ใส่ Discord Application ID"** (no Application ID yet): run the installer again (step 3) and wait about 30 seconds
 - **"Discord ไม่รับการเชื่อมต่อ … Application ID"** (Discord rejected the connection): the Application ID is wrong; see "Change the Application ID" below
 </details>
 
@@ -122,13 +124,13 @@ You can't click Listen on YouTube Music on your own profile; that's how Discord 
 </details>
 
 <details>
-<summary><b>The installer shows an error</b></summary>
+<summary><b>The installer won't run</b></summary>
 
-- **`node is not recognized`**: close and reopen the Terminal, or restart the computer after installing Node
-- **`Unknown file extension ".ts"`**: Node is too old; it must be 22.18 or newer. Install Node 24 LTS (check with `node -v`)
-- **`running scripts is disabled on this system`** (Windows): use `node scripts\install.ts` instead of `npm run setup`
-- **"ไม่พบ Chrome บนเครื่องนี้"** (Chrome not found, macOS): open Chrome once and run it again
-- **Load unpacked says `Manifest file is missing`**: choose the `extension` folder inside, not the project folder
+- **Windows shows no Run anyway button:** right-click the file → Properties → tick **Unblock** → OK, then open it again
+- **"ไม่พบ Chrome บนเครื่องนี้"** (Chrome not found): install or open Chrome once, then run the installer again
+- **Load unpacked says `Manifest file is missing`:** choose the `extension` folder itself, not the folder around it
+- **Can't find the extension folder:** it is `%LOCALAPPDATA%\ytm-discord-presence\extension` (Windows) or `~/Library/Application Support/ytm-discord-presence/extension` (macOS: press `Cmd + Shift + G` in the folder picker and paste this path)
+- **Thai text in the installer window shows as boxes:** it still works; follow the steps in this README
 - A work or school Chrome profile may have Developer mode turned off by the organisation; try a personal profile
 </details>
 
@@ -137,26 +139,22 @@ You can't click Listen on YouTube Music on your own profile; that's how Discord 
 
 - The status lags when you skip songs quickly: Discord accepts 5 updates per 20 seconds; it catches up
 - To start Discord when the computer starts: on Windows, Discord → User Settings → Windows Settings → Open Discord; on macOS, add Discord in System Settings → General → Login Items
-- Still stuck: look at `host/host.log` in the project folder
+- Still stuck: look at `host.log` in the `ytm-discord-presence` folder (same place as the extension folder above)
 </details>
 
 <details>
 <summary><b>When do I run the installer again?</b></summary>
 
-Not every time you start the computer. Only when you
-- move or rename the project folder
-- remove or move Node, or update it through nvm or Homebrew (updating with the installer from nodejs.org is fine)
-- change the Application ID
+Not every time you start the computer. Only to update to a new version or to change the Application ID.
 </details>
 
 <details>
 <summary><b>Change the Application ID</b></summary>
 
-Run the installer with the new ID at the end:
-- Windows: `node scripts\install.ts 123456789012345678`
-- macOS: `npm run setup -- 123456789012345678`
-
-Then close every YouTube Music tab and open it again.
+The installer remembers the ID. To change it:
+1. Delete `config.json` in the `ytm-discord-presence` folder (see "The installer won't run" above for where it is)
+2. Double-click the installer again and paste the new ID
+3. Close every YouTube Music tab and open it again
 </details>
 
 <details>
@@ -164,23 +162,26 @@ Then close every YouTube Music tab and open it again.
 
 Your version is shown at `chrome://extensions`; what's new is in [CHANGELOG.md](CHANGELOG.md) (in Thai). Updating keeps your Application ID.
 
-1. Open a Terminal in the project folder (as in step 3) and run
-   - Windows: `node scripts\update.ts`
-   - macOS: `npm run update`
+1. Download the new installer (step 2) and double-click it
 2. At `chrome://extensions`, click the reload button ↻ on the extension's card
 3. Refresh the YouTube Music tab
 
-If you downloaded with git, use `git pull` instead of step 1.
-
-Still on version 0.1.0 (no `scripts/update.ts` yet): download the ZIP again, extract it, copy everything inside over the old folder (choose Replace), then do steps 2 and 3.
+**Updating from 0.2 or older (the version that needed Node.js):**
+1. Download the installer and double-click it; it reuses your Application ID
+2. At `chrome://extensions`, click **Remove** on the old card, then **Load unpacked** the new folder the installer opens
+3. Refresh the YouTube Music tab
+4. Delete the old project folder, and uninstall Node.js if you don't use it for anything else
 </details>
 
 <details>
 <summary><b>Uninstall</b></summary>
 
-1. Windows: `node scripts\install.ts --uninstall` · macOS: `npm run setup -- --uninstall`
-2. At `chrome://extensions`, click **Remove** on the extension
-3. Delete the project folder, and the application in the Discord Developer Portal if you no longer need it
+1. Quit Chrome
+2. Open a Terminal in the folder with the installer (download it again if you deleted it) and run
+   - Windows: `.\ytm-discord-windows-amd64.exe --uninstall`
+   - macOS: `./ytm-discord --uninstall`
+3. Open Chrome, go to `chrome://extensions` and click **Remove** on the extension
+4. Delete the application in the Discord Developer Portal if you no longer need it
 </details>
 
 <details>
@@ -188,7 +189,8 @@ Still on version 0.1.0 (no `scripts/update.ts` yet): download the ZIP again, ext
 
 - The extension runs only on music.youtube.com and asks only for `nativeMessaging` (to talk to the helper on your computer)
 - Song details go only to the Discord app on your computer, no other server. Discord shows them to friends according to your settings
-- `host/host.log` keeps the latest song titles on your computer for troubleshooting; it clears itself past 1 MB
+- `host.log` keeps the latest song titles on your computer for troubleshooting; it never stores your Discord user name and clears itself past 1 MB
+- All the code is in this repo, and the downloads are built from it by GitHub itself
 </details>
 
 ## For developers
@@ -205,26 +207,23 @@ music.youtube.com ─▶ Chrome extension ─▶ helper (started by Chrome) ─�
 | `extension/page-reader.js` | Reads the song, artist, art and playback time from the YouTube Music page |
 | `extension/bridge.js` | Passes data from the page to the background script |
 | `extension/background.js` | Picks the track to show, sends it to the helper and updates the icon |
-| `host/main.ts` | The helper Chrome starts (native messaging) |
-| `host/discord-ipc.ts` | Talks to the Discord app over IPC, reconnects, and rate-limits as Discord requires |
-| `host/activity.ts` | Turns track data into a Discord activity and validates what the browser sends |
-| `scripts/install.ts` | Registers the helper with Chrome (Windows / macOS / Linux) |
-| `scripts/update.ts` | Updates a ZIP download to the latest version from GitHub |
-| `scripts/icons.ts` | Builds every state's PNG from `extension/icons/icon.svg` (needs ImageMagick) |
+| `main.go` | One program: the installer (double-click) and the helper (started by Chrome), with the extension folder embedded |
+| `internal/helper` | The helper: messages from Chrome, config and host.log |
+| `internal/activity` | Turns track data into a Discord activity and validates what the browser sends |
+| `internal/discordipc` | Talks to the Discord app over IPC, reconnects, and rate-limits as Discord requires |
+| `internal/installer` | Registers the helper with Chrome/Edge and unpacks the extension |
 
 ```
-npm install      # only TypeScript and type definitions
-npm run check    # type-check both sides
-npm test         # test the helper against a fake Discord
+go vet ./... && go test ./...   # helper and installer tests (against a fake Discord)
+go build -o ytm-discord .       # the file users download
+npm run check                   # type-check the extension
+npm run icons                   # rebuild every icon state from extension/icons/icon.svg (needs ImageMagick)
 ```
 
-- Node runs the `.ts` files directly, so there is no build. The extension is plain `.js`, type-checked by TypeScript
-- After editing `extension/`, click ↻ at `chrome://extensions` and refresh the YouTube Music tab
-- After editing `host/`, close every YouTube Music tab and open it again (the helper restarts)
-- Icons: edit `extension/icons/icon.svg` and run `npm run icons` to rebuild every state
-- Windows PowerShell: use `npm.cmd` instead of `npm`, e.g. `npm.cmd test`, and quit Discord before running tests, because the fake Discord uses the real pipe name
-- On every push, GitHub Actions runs `npm run check` and `npm test` on Windows, macOS and Linux
-- Releasing: set the same version in `package.json` and `extension/manifest.json`, add a `CHANGELOG.md` entry, and keep `README.md` (Thai) and `README.en.md` (English) in sync
+- Never run the installer against real folders on the machine you use; point the `YTM_DISCORD_*` variables at temp folders (see CLAUDE.md)
+- While working on the extension, Load unpacked the repo's `extension/` folder (same ID as the installed one); after edits click ↻ and refresh the tab
+- On every push, GitHub Actions tests on Windows, macOS and Linux
+- Releasing: set the same version in `version.go`, `package.json` and `extension/manifest.json`, add a `CHANGELOG.md` entry, update both READMEs, then push a tag such as `v0.3.1`; GitHub builds the files and the Release page
 </details>
 
 ## License
