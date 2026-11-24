@@ -270,8 +270,8 @@ func TestUpgradeFromNodeVersionKeepsTheID(t *testing.T) {
 	if !strings.Contains(e.stdout.String(), "ใช้ Application ID เดิม: 111111111111111111") {
 		t.Fatalf("output:\n%s", e.stdout.String())
 	}
-	if !strings.Contains(e.stdout.String(), "ไม่ต้องใช้ Node.js") {
-		t.Error("should say Node.js is no longer needed")
+	if !strings.Contains(e.stdout.String(), "ไม่ต้องใช้ Node.js") || !strings.Contains(e.stdout.String(), "กด Remove ก่อน") {
+		t.Errorf("should say to remove the old card and that Node.js is no longer needed:\n%s", e.stdout.String())
 	}
 	if _, err := os.Stat(launcher); !os.IsNotExist(err) {
 		t.Error("old launcher should be removed")

@@ -176,6 +176,9 @@ func (r *run) install(arg string) error {
 		fmt.Fprintln(out, "2. refresh แท็บ YouTube Music")
 	} else {
 		fmt.Fprintln(out, "1. เปิด chrome://extensions แล้วเปิด Developer mode")
+		if legacy {
+			fmt.Fprintln(out, "   (การ์ด YouTube Music → Discord เดิมที่โหลดจากโฟลเดอร์โปรเจกต์: กด Remove ก่อน)")
+		}
 		fmt.Fprintf(out, "2. กด Load unpacked แล้วเลือกโฟลเดอร์ %s\n", extensionDir)
 		fmt.Fprintln(out, "3. เปิดแอป Discord แล้วเล่นเพลงที่ music.youtube.com")
 	}
