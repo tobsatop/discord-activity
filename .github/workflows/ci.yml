@@ -9,38 +9,42 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Node ${{ matrix.node }} · ${{ matrix.os }}
+  go:
+    name: Go · ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
-        node: [22, 24]
-        exclude:
-          # GitHub's macOS runners often have long queues; one macOS job is enough.
-          - os: macos-latest
-            node: 22
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - run: go vet ./...
+      - run: go test ./...
+      - name: Race detector (Linux)
+        if: runner.os == 'Linux'
+        run: go test -race ./...
+
+      # The installer is the part Windows users run themselves: register, check, remove.
+      # Every location goes to a temp folder and a throwaway registry key.
+      - name: Installer smoke test (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          YTM_DISCORD_DATA_DIR: ${{ runner.temp }}\ytmd-data
+          YTM_DISCORD_REGISTRY_KEY: Software\ytmd-ci
+        run: ./scripts/smoke-windows.ps1
+
+  extension:
+    name: Extension type-check
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 24
           cache: npm
       - run: npm ci
       - run: npm run check
-      - run: npm test
-
-      # The installer is the part Windows users run themselves: register, check, remove.
-      - name: Installer smoke test (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          node scripts/install.ts 123456789012345678
-          if ($LASTEXITCODE -ne 0) { exit 1 }
-          $manifest = (Get-ItemProperty 'HKCU:\Software\Google\Chrome\NativeMessagingHosts\local.ytm_discord_presence').'(default)'
-          if (-not (Test-Path $manifest)) { throw "host manifest missing: $manifest" }
-          $launcher = (Get-Content $manifest | ConvertFrom-Json).path
-          if (-not (Test-Path $launcher)) { throw "launcher missing: $launcher" }
-          node scripts/install.ts --uninstall
-          if (Test-Path 'HKCU:\Software\Google\Chrome\NativeMessagingHosts\local.ytm_discord_presence') { throw 'registry key not removed' }

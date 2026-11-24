@@ -1,6 +1,6 @@
 // Shared shapes for the extension scripts (type-checking only; Chrome never loads this file).
 
-/** The song as read from the YouTube Music page. Same shape as `Track` in host/activity.ts. */
+/** The song as read from the YouTube Music page. Same shape as `Track` in internal/activity/activity.go. */
 interface Track {
   /** YouTube video id (11 chars), or '' if unknown. */
   videoId: string;
@@ -20,7 +20,7 @@ interface YtPlayerElement extends HTMLElement {
   getVideoData?: () => { video_id?: string; title?: string; author?: string } | undefined;
 }
 
-/** Messages from host/main.ts. */
+/** Messages from the helper (internal/helper). */
 interface HostStatus {
   type: 'status';
   state: 'connecting' | 'connected' | 'unavailable' | 'error';
