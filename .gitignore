@@ -1,4 +1,9 @@
 node_modules/
-# written on each computer by `npm run setup` / the host
+# Go build output
+/dist/
+/discord-activity
+/discord-activity.exe
+/ytm-discord*
+# written by the Node.js version (0.2 and older); holds the Application ID, never commit
 host/config.json
 host/*.log

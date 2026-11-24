@@ -1,6 +1,6 @@
 // @ts-check
 // Service worker. Collects the song from every open YouTube Music tab, picks
-// the one to show, and hands it to the native helper (host/main.ts), which
+// the one to show, and hands it to the native helper (internal/helper), which
 // Chrome starts on demand and which talks to the Discord app.
 const HOST_NAME = 'local.ytm_discord_presence';
 const RETRY_MS = 30_000;

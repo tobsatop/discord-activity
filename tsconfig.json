@@ -1,6 +1,6 @@
 {
-  // Type-checks the Node side (host + setup script). Node runs these .ts files
-  // directly by stripping the types, so there is no build step.
+  // Type-checks the Node dev scripts (scripts/icons.ts). Node runs these .ts
+  // files directly by stripping the types, so there is no build step.
   "compilerOptions": {
     "target": "es2023",
     "lib": ["es2023"],
@@ -14,5 +14,5 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
   },
-  "include": ["host/**/*.ts", "scripts/**/*.ts"]
+  "include": ["scripts/**/*.ts"]
 }
